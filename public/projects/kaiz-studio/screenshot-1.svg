@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="100%" height="100%">
+  <rect width="1200" height="675" fill="#121217"/>
+  <!-- Top Bar -->
+  <rect x="0" y="0" width="1200" height="48" fill="#1C1C24" border-bottom="1px solid #2D2D3A"/>
+  <circle cx="28" cy="24" r="6" fill="#FF5F56"/>
+  <circle cx="48" cy="24" r="6" fill="#FFBD2E"/>
+  <circle cx="68" cy="24" r="6" fill="#27C93F"/>
+  <text x="100" y="29" fill="#9D9DAF" font-family="monospace" font-size="14">KAIZ Studio &bull; Adobe Premiere Pro + AI Post-Production Timeline</text>
+  <rect x="1040" y="14" width="130" height="22" rx="4" fill="#9945FF"/>
+  <text x="1055" y="29" fill="#FFFFFF" font-family="monospace" font-size="11" font-weight="bold">4K SEQUENCE</text>
+
+  <!-- Program Monitor (Video Preview) -->
+  <rect x="40" y="75" width="600" height="340" rx="6" fill="#0A0A0E" stroke="#2D2D3A"/>
+  
+  <!-- Composition Mockup in monitor -->
+  <rect x="70" y="95" width="540" height="300" fill="#181822"/>
+  <text x="100" y="230" fill="#FFFFFF" font-family="'Syne', sans-serif" font-size="32" font-weight="800">KAIZ STUDIO</text>
+  <text x="100" y="260" fill="#00E5FF" font-family="monospace" font-size="14">AI-ASSISTED MOTION &amp; EDITING</text>
+  <rect x="100" y="280" width="160" height="4" fill="#9945FF"/>
+
+  <!-- Audio Inspector & Tool Panels -->
+  <rect x="670" y="75" width="490" height="340" rx="6" fill="#1C1C24" stroke="#2D2D3A"/>
+  <text x="695" y="110" fill="#E6EDF3" font-family="'Space Grotesk', sans-serif" font-size="16" font-weight="bold">CREATIVE TOOL STACK</text>
+  
+  <rect x="695" y="130" width="100" height="36" rx="4" fill="#4FC3F7" fill-opacity="0.2" stroke="#4FC3F7"/>
+  <text x="730" y="153" fill="#4FC3F7" font-family="monospace" font-size="13" font-weight="bold">Pr</text>
+
+  <rect x="810" y="130" width="100" height="36" rx="4" fill="#9FA8DA" fill-opacity="0.2" stroke="#9FA8DA"/>
+  <text x="845" y="153" fill="#9FA8DA" font-family="monospace" font-size="13" font-weight="bold">Ae</text>
+
+  <rect x="925" y="130" width="100" height="36" rx="4" fill="#31A8FF" fill-opacity="0.2" stroke="#31A8FF"/>
+  <text x="960" y="153" fill="#31A8FF" font-family="monospace" font-size="13" font-weight="bold">Ps</text>
+
+  <rect x="1040" y="130" width="100" height="36" rx="4" fill="#FF9A00" fill-opacity="0.2" stroke="#FF9A00"/>
+  <text x="1075" y="153" fill="#FF9A00" font-family="monospace" font-size="13" font-weight="bold">Ai</text>
+
+  <text x="695" y="200" fill="#9D9DAF" font-family="monospace" font-size="12">AI AUTOMATION FEATURES</text>
+  <text x="695" y="230" fill="#E6EDF3" font-family="'Space Grotesk', sans-serif" font-size="13">&bull; Automated speech transcription &amp; dynamic subtitle generation</text>
+  <text x="695" y="260" fill="#E6EDF3" font-family="'Space Grotesk', sans-serif" font-size="13">&bull; Audio dynamic leveling &amp; noise suppression in Audition</text>
+  <text x="695" y="290" fill="#E6EDF3" font-family="'Space Grotesk', sans-serif" font-size="13">&bull; Color grade LUT matching &amp; asset pre-generation</text>
+
+  <!-- Multi-track Editing Timeline at Bottom -->
+  <rect x="40" y="440" width="1120" height="195" rx="6" fill="#1C1C24" stroke="#2D2D3A"/>
+  
+  <!-- Timeline header -->
+  <rect x="40" y="440" width="1120" height="32" fill="#14141A"/>
+  <text x="60" y="462" fill="#9D9DAF" font-family="monospace" font-size="11">TIMELINE &bull; Sequence 01 &bull; 00:01:24:18</text>
+  <line x1="480" y1="440" x2="480" y2="635" stroke="#FF3D71" stroke-width="2"/>
+
+  <!-- Video Track V3 (Graphics) -->
+  <text x="60" y="495" fill="#9D9DAF" font-family="monospace" font-size="10">V3</text>
+  <rect x="120" y="480" width="220" height="24" rx="2" fill="#9FA8DA" opacity="0.8"/>
+  <rect x="360" y="480" width="310" height="24" rx="2" fill="#9FA8DA" opacity="0.8"/>
+  <text x="130" y="496" fill="#121217" font-family="monospace" font-size="10" font-weight="bold">Title_LowerThird.mogrt</text>
+
+  <!-- Video Track V2 (Overlays / B-Roll) -->
+  <text x="60" y="530" fill="#9D9DAF" font-family="monospace" font-size="10">V2</text>
+  <rect x="200" y="515" width="180" height="24" rx="2" fill="#4FC3F7" opacity="0.8"/>
+  <rect x="420" y="515" width="280" height="24" rx="2" fill="#4FC3F7" opacity="0.8"/>
+  <text x="210" y="531" fill="#121217" font-family="monospace" font-size="10" font-weight="bold">B-Roll_A04.mp4</text>
+
+  <!-- Video Track V1 (Main Footage) -->
+  <text x="60" y="565" fill="#9D9DAF" font-family="monospace" font-size="10">V1</text>
+  <rect x="100" y="550" width="340" height="24" rx="2" fill="#3B82F6"/>
+  <rect x="450" y="550" width="400" height="24" rx="2" fill="#3B82F6"/>
+  <text x="110" y="566" fill="#FFFFFF" font-family="monospace" font-size="10" font-weight="bold">Main_Cam_A01.mov</text>
+
+  <!-- Audio Tracks A1 / A2 -->
+  <text x="60" y="605" fill="#9D9DAF" font-family="monospace" font-size="10">A1</text>
+  <rect x="100" y="590" width="750" height="24" rx="2" fill="#00E676" opacity="0.7"/>
+  <text x="110" y="606" fill="#121217" font-family="monospace" font-size="10" font-weight="bold">Voice_Dialogue_Mastered.wav (Audition Cleanup)</text>
+</svg>

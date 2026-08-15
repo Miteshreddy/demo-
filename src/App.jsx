@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './index.css';
+import { PROJECTS, PROJECT_STATUSES } from './data/projects';
+import { SKILL_CATEGORIES } from './data/skills';
 
 /* ===================================================
    CUSTOM CURSOR
@@ -33,7 +35,7 @@ function CustomCursor() {
     };
 
     window.addEventListener('mousemove', onMove);
-    document.querySelectorAll('a, button, [role="button"], .project-item, .tool-item, .gallery-item').forEach((el) => {
+    document.querySelectorAll('a, button, [role="button"], .project-item, .tool-item, .gallery-item, .work-filter-btn').forEach((el) => {
       el.addEventListener('mouseenter', onEnter);
       el.addEventListener('mouseleave', onLeave);
     });
@@ -79,7 +81,7 @@ function Navbar() {
     <>
       <nav className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`} role="navigation" aria-label="Main navigation">
         <a href="#hero" className="navbar__logo" onClick={(e) => { e.preventDefault(); scrollTo('hero'); }}>
-          MITESH<sup>®</sup>
+          MITESH<sup>&reg;</sup>
         </a>
         <ul className="navbar__nav">
           {['work', 'about', 'skills', 'contact'].map((id) => (
@@ -91,7 +93,7 @@ function Navbar() {
           ))}
         </ul>
         <a href="mailto:miteshguduru@gmail.com" className="navbar__availability">
-          AVAILABLE FOR OPPORTUNITIES
+          OPEN TO OPPORTUNITIES
         </a>
         <button
           className={`navbar__hamburger ${menuOpen ? 'open' : ''}`}
@@ -110,7 +112,7 @@ function Navbar() {
             {id.toUpperCase()}
           </a>
         ))}
-        <span className="mobile-menu__avail">Available for opportunities</span>
+        <span className="mobile-menu__avail">Open to opportunities</span>
       </div>
     </>
   );
@@ -140,12 +142,12 @@ function Hero() {
 
   return (
     <section id="hero" className="hero" ref={heroRef} aria-label="Hero section">
-      {/* Cinematic hero image */}
+      {/* Workspace image */}
       <div className="hero__img-wrap" aria-hidden="true">
         <img
           ref={imgRef}
-          src="/images/hero_workspace.jpg"
-          alt="Creative editing workstation"
+          src="/images/hero_trend.jpg"
+          alt="3D electric blue fluid wave mesh background"
           className="hero__img"
           loading="eager"
         />
@@ -154,7 +156,7 @@ function Hero() {
 
       <div className="hero__content">
         <div className="hero__eyebrow" aria-label="Location">
-          BASED IN HYDERABAD&nbsp;•&nbsp;INDIA
+          BASED IN HYDERABAD&nbsp;&bull;&nbsp;INDIA
         </div>
 
         <h1 className="hero__headline" aria-label="Creative Meets Technology">
@@ -164,8 +166,8 @@ function Hero() {
         </h1>
 
         <p className="hero__sub">
-          I build visual experiences, edit stories, design interfaces and
-          explore AI-powered creative workflows.
+          I'm a B.Tech student building machine learning pipelines, computer vision systems,
+          and practical full-stack AI applications — with a strong foundation in visual production.
         </p>
 
         <div className="hero__actions">
@@ -174,20 +176,20 @@ function Hero() {
             className="btn btn--primary"
             onClick={(e) => { e.preventDefault(); document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' }); }}
           >
-            VIEW MY WORK
+            EXPLORE PROJECTS
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
               <path d="M1 13L13 1M13 1H4M13 1V10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
             </svg>
           </a>
-          <a href="mailto:miteshguduru@gmail.com" className="btn btn--outline">
-            LET'S TALK
+          <a href="https://github.com/Miteshreddy" target="_blank" rel="noopener noreferrer" className="btn btn--outline">
+            GITHUB PROFILE ↗
           </a>
         </div>
 
-        <div className="hero__ticker" aria-label="Expertise areas">
-          <div className="hero__ticker-label">EXPERTISE</div>
+        <div className="hero__ticker" aria-label="Technical focus areas">
+          <div className="hero__ticker-label">CORE FOCUS</div>
           <div className="hero__ticker-items" role="list">
-            {['Adobe', 'Canva', 'AI', 'Web', 'Motion'].map((item) => (
+            {['Machine Learning', 'PyTorch', 'Computer Vision', 'Generative AI', 'React', 'Adobe Suite'].map((item) => (
               <span key={item} className="ticker-pill" role="listitem">{item}</span>
             ))}
           </div>
@@ -207,13 +209,13 @@ function Hero() {
    =================================================== */
 function MarqueeStrip() {
   const items = [
-    'VIDEO EDITING', 'MOTION DESIGN', 'UI/UX', 'AI',
-    'WEB DEVELOPMENT', 'WORDPRESS', 'CREATIVE TECHNOLOGY',
+    'MACHINE LEARNING', 'COMPUTER VISION', 'DEEP LEARNING', 'PYTORCH',
+    'GENERATIVE AI', 'FULL-STACK AI', 'VIDEO EDITING', 'MOTION DESIGN',
   ];
   const doubled = [...items, ...items];
 
   return (
-    <div className="marquee-section" aria-label="Services offered" role="region">
+    <div className="marquee-section" aria-label="Technical domains" role="region">
       <div className="marquee-track" aria-hidden="true">
         {doubled.map((item, i) => (
           <span key={i} className="marquee-item">
@@ -241,38 +243,36 @@ function About() {
           <div className="about__img-wrap">
             <img
               src="/images/about_workspace.jpg"
-              alt="Creative workspace — laptop, drawing tablet and notebook"
+              alt="Workstation — laptop, code terminal, and editing notes"
               className="about__img"
               loading="lazy"
             />
-            <div className="about__img-label">CREATIVE WORKSPACE</div>
+            <div className="about__img-label">DEVELOPMENT &amp; EDITING DESK</div>
           </div>
         </div>
 
         <div className="about__right">
           <p className="about__text reveal reveal-delay-1">
-            I'm Mitesh. I enjoy working where creativity and technology meet.
-            My strongest area is visual content creation — especially video editing
-            and motion graphics — but I also enjoy building websites and experimenting
-            with AI and machine learning.
+            I'm a B.Tech student from Hyderabad interested in machine learning, computer vision
+            and AI applications. Most of what I learn comes from building things — training models,
+            breaking them, fixing them and then trying to turn them into something usable. I enjoy
+            working on both the ML side and the engineering needed to turn a model into a real application.
           </p>
           <p className="about__text reveal reveal-delay-2">
-            I like learning by building things. That has taken me from editing videos
-            and creating graphics to developing web applications and experimenting
-            with AI-assisted tools. Every project teaches me something new about the
-            space where design and technology overlap.
+            Outside pure ML work, I spend a lot of time with Adobe tools and video production,
+            so I also enjoy projects where technology and visual creativity overlap.
           </p>
 
           <div className="about__identity reveal reveal-delay-2">
             <div className="about__identity-name">G. MITESH</div>
-            <div className="about__identity-role">Creative Technologist</div>
+            <div className="about__identity-role">B.Tech Student &bull; AI &amp; ML Developer</div>
             <div className="about__identity-tags">
-              Video Editor&nbsp;•&nbsp;Designer&nbsp;•&nbsp;AI Enthusiast&nbsp;•&nbsp;Web Developer
+              Machine Learning&nbsp;&bull;&nbsp;Computer Vision&nbsp;&bull;&nbsp;Deep Learning&nbsp;&bull;&nbsp;Video Production
             </div>
           </div>
 
-          <div className="about__tags reveal reveal-delay-3" role="list" aria-label="Roles">
-            {['Video Editor', 'UI/UX Designer', 'AI Enthusiast', 'Web Developer', 'Motion Designer'].map((tag) => (
+          <div className="about__tags reveal reveal-delay-3" role="list" aria-label="Competencies">
+            {['Machine Learning', 'Computer Vision', 'PyTorch', 'Generative AI', 'Full-Stack', 'Video Production'].map((tag) => (
               <span key={tag} className="about__tag" role="listitem">{tag}</span>
             ))}
           </div>
@@ -283,7 +283,7 @@ function About() {
 }
 
 /* ===================================================
-   PROJECT VISUAL — now uses real images with SVG overlay
+   PROJECT VISUAL
    =================================================== */
 function ProjectVisual({ type, title, imageSrc }) {
   const accentColors = {
@@ -299,7 +299,7 @@ function ProjectVisual({ type, title, imageSrc }) {
       {imageSrc ? (
         <img
           src={imageSrc}
-          alt={`${title} project visual`}
+          alt={`${title} project preview`}
           className="project-item__img"
           loading="lazy"
         />
@@ -310,7 +310,7 @@ function ProjectVisual({ type, title, imageSrc }) {
       {/* Overlay tint */}
       <div
         className="project-item__img-overlay"
-        style={{ background: `linear-gradient(135deg, ${accent} 0%, rgba(0,0,0,0.55) 100%)` }}
+        style={{ background: `linear-gradient(135deg, ${accent} 0%, rgba(0,0,0,0.45) 100%)` }}
       />
 
       {/* SVG grid decoration */}
@@ -319,11 +319,11 @@ function ProjectVisual({ type, title, imageSrc }) {
         aria-hidden="true"
       >
         <defs>
-          <pattern id={`grid-${type}`} width="40" height="40" patternUnits="userSpaceOnUse">
+          <pattern id={`grid-${type || 1}`} width="40" height="40" patternUnits="userSpaceOnUse">
             <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(245,240,232,1)" strokeWidth="0.5"/>
           </pattern>
         </defs>
-        <rect width="100%" height="100%" fill={`url(#grid-${type})`} />
+        <rect width="100%" height="100%" fill={`url(#grid-${type || 1})`} />
       </svg>
 
       {/* Arrow */}
@@ -333,6 +333,18 @@ function ProjectVisual({ type, title, imageSrc }) {
         </svg>
       </div>
     </div>
+  );
+}
+
+/* ===================================================
+   PROJECT STATUS BADGE
+   =================================================== */
+function StatusBadge({ status }) {
+  const normalized = (status || 'Completed').toLowerCase().replace(/\s+/g, '-');
+  return (
+    <span className={`status-badge status-badge--${normalized}`}>
+      {status}
+    </span>
   );
 }
 
@@ -369,7 +381,10 @@ function ProjectModal({ project, onClose }) {
       <div className="modal">
         <div className="modal__header">
           <div>
-            <div className="modal__cat">{project.category}</div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.5rem', flexWrap: 'wrap' }}>
+              <span className="modal__cat">{project.category}</span>
+              <StatusBadge status={project.status} />
+            </div>
             <h2 className="modal__title">{project.title}</h2>
           </div>
           <button className="modal__close" onClick={onClose} aria-label="Close modal">
@@ -380,47 +395,113 @@ function ProjectModal({ project, onClose }) {
         </div>
 
         <div className="modal__visual">
-          {project.imageSrc ? (
-            <img
-              src={project.imageSrc}
-              alt={`${project.title} — concept visual`}
-              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-            />
-          ) : (
-            <ProjectVisual type={project.visualType} title={project.title} />
-          )}
+          <img
+            src={project.image || (project.screenshots && project.screenshots[0]?.src)}
+            alt={`${project.title} interface preview`}
+            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          />
         </div>
 
-        {project.imageSrc && (
-          <div className="modal__img-note">
-            Visual concept representation — not a production screenshot.
-          </div>
-        )}
+        <div className="modal__img-note">
+          Technical artifact &bull; Pipeline and interface demonstration
+        </div>
 
         <div className="modal__body">
+          {/* Overview */}
           <div>
-            <div className="modal__label">DESCRIPTION</div>
+            <div className="modal__label">OVERVIEW</div>
             <p className="modal__text">{project.description}</p>
           </div>
+
+          {/* Why I built it */}
           <div>
-            <div className="modal__label">ROLE</div>
-            <p className="modal__text">{project.role}</p>
+            <div className="modal__label">WHY I BUILT IT</div>
+            <p className="modal__text">{project.whyBuilt || project.shortDescription}</p>
           </div>
+
+          {/* How It Works Pipeline */}
+          {project.howItWorks && (
+            <div className="modal__body-full">
+              <div className="modal__label">HOW IT WORKS &bull; TECHNICAL PIPELINE</div>
+              <div className="modal__workflow">
+                {project.howItWorks.map((step, idx) => (
+                  <div key={idx} className="modal__workflow-step">
+                    <span className="modal__workflow-step-num">0{idx + 1}</span>
+                    <span className="modal__workflow-step-name">{step.step}</span>
+                    <span className="modal__workflow-step-desc">{step.desc}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* What I worked on */}
+          {project.whatIWorkedOn && (
+            <div>
+              <div className="modal__label">WHAT I WORKED ON</div>
+              <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.6rem', padding: 0 }}>
+                {project.whatIWorkedOn.map((item, idx) => (
+                  <li key={idx} style={{ fontSize: '0.9rem', color: 'var(--clr-charcoal)', lineHeight: '1.6', display: 'flex', gap: '0.5rem' }}>
+                    <span style={{ color: 'var(--clr-accent)', fontWeight: 'bold' }}>&bull;</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {/* Technologies */}
           <div>
-            <div className="modal__label">TOOLS & TECHNOLOGIES</div>
+            <div className="modal__label">TECHNOLOGIES</div>
             <div className="modal__tools">
-              {project.tools.map((t) => (
+              {(project.technologies || []).map((t) => (
                 <span key={t} className="modal__tool-tag">{t}</span>
               ))}
             </div>
           </div>
-          <div>
-            <div className="modal__label">OUTCOME</div>
-            <p className="modal__text">{project.outcome}</p>
-          </div>
+
+          {/* Project Screenshots */}
+          {project.screenshots && project.screenshots.length > 0 && (
+            <div className="modal__body-full">
+              <div className="modal__label">PROJECT ARTIFACTS &amp; SCREENSHOTS</div>
+              <div className="modal__screenshots">
+                {project.screenshots.map((s, idx) => (
+                  <div key={idx} className="modal__screenshot-card">
+                    <img src={s.src} alt={s.title} className="modal__screenshot-img" loading="lazy" />
+                    <div className="modal__screenshot-info">
+                      <div className="modal__screenshot-title">{s.title}</div>
+                      {s.desc && <div className="modal__screenshot-desc">{s.desc}</div>}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Action Links */}
           <div className="modal__body-full">
-            <div className="modal__label">PROCESS</div>
-            <p className="modal__text">{project.process}</p>
+            <div className="modal__actions">
+              {project.github && (
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn--modal-github"
+                >
+                  VIEW ON GITHUB ↗
+                </a>
+              )}
+              {project.liveDemo && (
+                <a
+                  href={project.liveDemo}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn--modal-demo"
+                >
+                  LIVE DEMO ↗
+                </a>
+              )}
+            </div>
           </div>
         </div>
       </div>
@@ -429,75 +510,49 @@ function ProjectModal({ project, onClose }) {
 }
 
 /* ===================================================
-   SELECTED WORK
+   SELECTED WORK (CENTRAL SYSTEM)
    =================================================== */
-const PROJECTS = [
-  {
-    num: '01',
-    title: 'KAIZ STUDIO',
-    category: 'AI / VIDEO / CREATIVE TECHNOLOGY',
-    description: 'An AI-assisted video editing workflow exploring how repetitive editing tasks can be made faster and more creative without losing human judgment.',
-    role: 'Creative Lead / Video Editor / Workflow Designer',
-    tools: ['Premiere Pro', 'After Effects', 'AI Tools', 'Automation Scripts'],
-    process: 'Started by identifying the most time-consuming parts of video editing — sync, color grading, and cut selection. Built a workflow that layers AI suggestions on top of manual creative decisions, keeping human judgment at the center.',
-    outcome: 'A personal workflow system that significantly reduces turnaround time on video projects while maintaining a high creative standard.',
-    visualType: 1,
-    imageSrc: '/images/kaiz_studio.jpg',
-  },
-  {
-    num: '02',
-    title: 'AGROXAI',
-    category: 'MACHINE LEARNING / WEB',
-    description: 'An AI-powered crop recommendation application combining machine learning with a full web interface. Trained on agricultural datasets to suggest optimal crops based on environmental inputs.',
-    role: 'ML Developer / Full Stack Developer',
-    tools: ['Python', 'XGBoost', 'Scikit-learn', 'React', 'MongoDB'],
-    process: 'Trained a machine learning model on agricultural datasets to recommend optimal crops based on soil, climate, and environmental inputs. Connected the model to a React-based web interface for ease of use.',
-    outcome: 'A working full-stack ML application demonstrating end-to-end model deployment from data to UI.',
-    visualType: 2,
-    imageSrc: '/images/agroxai.jpg',
-  },
-  {
-    num: '03',
-    title: 'COMPUTER VISION LAB',
-    category: 'AI / COMPUTER VISION',
-    description: 'Experiments with image processing, OpenCV and computer vision workflows — exploring what machines can learn to see through edge detection, object segmentation and feature matching.',
-    role: 'Research / Developer',
-    tools: ['Python', 'OpenCV', 'NumPy', 'Scikit-learn'],
-    process: 'Explored classic and modern computer vision techniques: edge detection, object segmentation, feature matching and basic classification. Used Python and OpenCV as primary tools.',
-    outcome: 'A collection of working vision experiments that deepened understanding of how machine perception works at a fundamental level.',
-    visualType: 3,
-    imageSrc: '/images/cv_lab.jpg',
-  },
-  {
-    num: '04',
-    title: 'CREATIVE EDITING',
-    category: 'ADOBE / MOTION / VIDEO',
-    description: 'Video edits, motion graphics, visual storytelling and content experiments created using Adobe Creative Cloud. An ongoing practice of editing stories and refining visual instincts.',
-    role: 'Video Editor / Motion Designer / Visual Artist',
-    tools: ['Premiere Pro', 'After Effects', 'Photoshop', 'Illustrator', 'Audition', 'Canva'],
-    process: 'An ongoing personal practice of editing video stories, creating motion graphics, designing thumbnails and experimenting with visual effects. Each project refines editing instincts and visual taste.',
-    outcome: 'A growing body of creative work that demonstrates strong command of the Adobe ecosystem and a distinct visual style.',
-    visualType: 4,
-    imageSrc: '/images/creative_editing.jpg',
-  },
-];
-
 function Work() {
   const [activeProject, setActiveProject] = useState(null);
+  const [selectedStatus, setSelectedStatus] = useState('All');
+
+  const filteredProjects = selectedStatus === 'All'
+    ? PROJECTS
+    : PROJECTS.filter((p) => p.status.toLowerCase() === selectedStatus.toLowerCase());
+
+  useEffect(() => {
+    const items = document.querySelectorAll('.work-section .reveal');
+    items.forEach((item) => item.classList.add('visible'));
+  }, [selectedStatus]);
 
   return (
     <section id="work" className="section work-section" aria-label="Selected work">
       <div className="work-header">
-        <h2 className="work-header__title reveal">SELECTED<br />WORK</h2>
+        <div>
+          <h2 className="work-header__title reveal">SELECTED<br />PROJECTS</h2>
+          <div className="work-filters reveal reveal-delay-1" role="tablist" aria-label="Filter projects by status">
+            {PROJECT_STATUSES.map((status) => (
+              <button
+                key={status}
+                className={`work-filter-btn ${selectedStatus === status ? 'active' : ''}`}
+                onClick={() => setSelectedStatus(status)}
+                role="tab"
+                aria-selected={selectedStatus === status}
+              >
+                {status}
+              </button>
+            ))}
+          </div>
+        </div>
         <p className="work-header__sub reveal reveal-delay-1">
-          A few things I've built, edited and experimented with.
+          Machine learning pipelines, computer vision systems, and practical AI applications I'm building and experimenting with.
         </p>
       </div>
 
       <div className="project-list" role="list">
-        {PROJECTS.map((project) => (
+        {filteredProjects.map((project) => (
           <article
-            key={project.num}
+            key={project.id || project.num}
             className="project-item reveal"
             role="listitem"
             onClick={() => setActiveProject(project)}
@@ -507,17 +562,24 @@ function Work() {
           >
             <div className="project-item__num" aria-hidden="true">{project.num}</div>
             <div className="project-item__info">
-              <div className="project-item__cat">{project.category}</div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.6rem', flexWrap: 'wrap' }}>
+                <div className="project-item__cat" style={{ marginBottom: 0 }}>{project.category}</div>
+                <StatusBadge status={project.status} />
+              </div>
               <h3 className="project-item__title">{project.title}</h3>
-              <p className="project-item__desc">{project.description}</p>
+              <p className="project-item__desc">{project.shortDescription || project.description}</p>
               <div className="project-item__tags" role="list" aria-label="Technologies">
-                {project.tools.map((t) => (
+                {(project.technologies || []).slice(0, 5).map((t) => (
                   <span key={t} className="project-item__tag" role="listitem">{t}</span>
                 ))}
               </div>
             </div>
             <div className="project-item__visual">
-              <ProjectVisual type={project.visualType} title={project.title} imageSrc={project.imageSrc} />
+              <ProjectVisual
+                type={project.visualType}
+                title={project.title}
+                imageSrc={project.image || (project.screenshots && project.screenshots[0]?.src)}
+              />
             </div>
           </article>
         ))}
@@ -529,20 +591,20 @@ function Work() {
 }
 
 /* ===================================================
-   STATISTICS
+   STATISTICS / SCOPE
    =================================================== */
 function Stats() {
   const stats = [
-    { num: '01', label: 'MAIN CREATIVE\nFOCUS' },
-    { num: '05+', label: 'ADOBE /\nCREATIVE TOOLS' },
-    { num: '04+', label: 'TECHNICAL\nDOMAINS' },
-    { num: '∞', label: 'IDEAS\nTO BUILD' },
+    { num: '06', label: 'PROJECTS BUILT\n& IN PROGRESS' },
+    { num: '09+', label: 'TECHNICAL\nDOMAINS' },
+    { num: '05+', label: 'ADOBE &\nCREATIVE TOOLS' },
+    { num: '∞', label: 'MODELS &\nEXPERIMENTS' },
   ];
 
   return (
-    <section className="stats-section" aria-label="Personal metrics">
+    <section className="stats-section" aria-label="Personal project scope">
       <div className="container">
-        <div className="eyebrow eyebrow--light reveal" style={{ paddingBottom: '1.5rem' }}>BY THE NUMBERS</div>
+        <div className="eyebrow eyebrow--light reveal" style={{ paddingBottom: '1.5rem' }}>WORK IN PERSPECTIVE</div>
       </div>
       <div className="stats-grid" role="list">
         {stats.map((s, i) => (
@@ -562,23 +624,23 @@ function Stats() {
    CREATIVE TOOLKIT (ADOBE + TOOLS)
    =================================================== */
 const TOOLS = [
-  { name: 'PREMIERE PRO', use: 'Video editing • storytelling • pacing', color: '#4FC3F7', abbr: 'Pr' },
-  { name: 'AFTER EFFECTS', use: 'Motion graphics • animation • visual effects', color: '#9FA8DA', abbr: 'Ae' },
-  { name: 'PHOTOSHOP', use: 'Thumbnails • image editing • compositing', color: '#31A8FF', abbr: 'Ps' },
-  { name: 'ILLUSTRATOR', use: 'Graphic design • vector artwork • branding', color: '#FF9A00', abbr: 'Ai' },
-  { name: 'AUDITION', use: 'Audio cleanup • sound design • mixing', color: '#00E4BB', abbr: 'Au' },
-  { name: 'CANVA', use: 'Fast layouts • social graphics • presentations', color: '#00C4CC', abbr: 'Cv' },
+  { name: 'PREMIERE PRO', use: 'Timeline editing • pacing • multicam sync', color: '#4FC3F7', abbr: 'Pr' },
+  { name: 'AFTER EFFECTS', use: 'Motion graphics • kinetic typography • VFX', color: '#9FA8DA', abbr: 'Ae' },
+  { name: 'PHOTOSHOP', use: 'Asset design • thumbnails • compositing', color: '#31A8FF', abbr: 'Ps' },
+  { name: 'ILLUSTRATOR', use: 'Vector graphics • icons • layout elements', color: '#FF9A00', abbr: 'Ai' },
+  { name: 'AUDITION', use: 'Noise reduction • dynamic leveling • audio polish', color: '#00E4BB', abbr: 'Au' },
+  { name: 'CANVA', use: 'Fast social layouts • decks • presentations', color: '#00C4CC', abbr: 'Cv' },
 ];
 
 function Toolkit() {
   const [activeTool, setActiveTool] = useState(TOOLS[0]);
 
   return (
-    <section className="section toolkit-section" aria-label="Creative toolkit">
+    <section className="section toolkit-section" aria-label="Creative production toolkit">
       <div className="toolkit-header reveal">
-        <div className="eyebrow">THE CREATIVE TOOLKIT</div>
+        <div className="eyebrow">CREATIVE PRODUCTION</div>
         <h2 className="toolkit-title">ADOBE</h2>
-        <div className="toolkit-subtitle">+ CANVA + MORE</div>
+        <div className="toolkit-subtitle">+ CREATIVE TOOLSET</div>
       </div>
 
       <div className="toolkit-grid">
@@ -633,36 +695,36 @@ function Toolkit() {
 }
 
 /* ===================================================
-   AI SECTION
+   AI & ENGINEERING SECTION
    =================================================== */
 function AISection() {
   const items = [
     {
       num: '01',
-      title: 'AI ASSISTED EDITING',
-      desc: 'Using AI to handle the repetitive parts of video editing — auto-sync, scene selection assistance, color grade suggestions — freeing up time for actual creative decisions.',
+      title: 'COMPUTER VISION PIPELINES',
+      desc: 'Building frame-by-frame video processing loops with OpenCV and PyTorch YOLO models, handling bounding boxes, non-maximum suppression, and confidence filtering.',
     },
     {
       num: '02',
-      title: 'CONTENT GENERATION',
-      desc: 'Combining AI tools with design thinking to generate visual assets, copy variants and creative starting points that I then refine manually into finished work.',
+      title: 'RETRIEVAL & EMBEDDINGS',
+      desc: 'Structuring document chunking and vector similarity retrieval pipelines with LangChain and FastAPI to supply accurate grounding context for LLM queries.',
     },
     {
       num: '03',
-      title: 'WORKFLOW AUTOMATION',
-      desc: 'Building scripts and tool-chains that connect AI outputs with creative applications, creating hybrid workflows that are both faster and more consistent.',
+      title: 'FULL-STACK ML INTEGRATION',
+      desc: 'Connecting trained models (XGBoost, Decision Trees, CNNs) to REST endpoints and clean React interfaces so anyone can test predictions directly.',
     },
   ];
 
   return (
-    <section className="ai-section" aria-label="AI and creative workflows">
+    <section className="ai-section" aria-label="AI and engineering focus">
       <div className="ai-section__bg-orb" aria-hidden="true" />
 
       <div className="container">
-        <div className="ai-section__eyebrow reveal">AI + CREATIVITY</div>
-        <h2 className="ai-section__title reveal">CREATIVE<br />+ AI</h2>
+        <div className="ai-section__eyebrow reveal">AI &amp; ENGINEERING FOCUS</div>
+        <h2 className="ai-section__title reveal">PRACTICAL<br />AI SYSTEMS</h2>
         <p className="ai-section__quote reveal reveal-delay-1">
-          "I use AI as a creative tool, not as a replacement for creativity."
+          "I build ML projects in Python and then connect the model to a usable application."
         </p>
 
         <div className="ai-items" role="list">
@@ -675,7 +737,7 @@ function AISection() {
           ))}
         </div>
 
-        {/* SVG AI Visualization */}
+        {/* SVG Pipeline Visualization */}
         <div className="ai-viz reveal" aria-hidden="true">
           <svg width="320" height="140" viewBox="0 0 320 140" fill="none" role="presentation">
             <circle cx="160" cy="70" r="50" stroke="rgba(26,74,255,0.35)" strokeWidth="1" className="ai-svg-ring"/>
@@ -690,141 +752,10 @@ function AISection() {
             <line x1="0" y1="70" x2="108" y2="70" stroke="rgba(26,74,255,0.15)" strokeWidth="0.5"/>
             <line x1="212" y1="70" x2="320" y2="70" stroke="rgba(26,74,255,0.15)" strokeWidth="0.5"/>
             {/* Labels */}
-            <text x="0" y="60" fill="rgba(26,74,255,0.4)" fontSize="8" fontFamily="monospace" letterSpacing="1">AI</text>
-            <text x="270" y="60" fill="rgba(26,74,255,0.4)" fontSize="8" fontFamily="monospace" letterSpacing="1">CREATE</text>
+            <text x="0" y="60" fill="rgba(26,74,255,0.4)" fontSize="8" fontFamily="monospace" letterSpacing="1">DATA / INGEST</text>
+            <text x="250" y="60" fill="rgba(26,74,255,0.4)" fontSize="8" fontFamily="monospace" letterSpacing="1">INFERENCE</text>
           </svg>
         </div>
-      </div>
-    </section>
-  );
-}
-
-/* ===================================================
-   UI/UX SECTION
-   =================================================== */
-function UXSection() {
-  const concepts = [
-    { num: '01', name: 'MEDIA DASHBOARD', desc: 'Desktop interface concept for a media management platform', type: 'dashboard' },
-    { num: '02', name: 'AI CREATIVE TOOL', desc: 'Interface concept for an AI-powered design assistant', type: 'ai-tool' },
-    { num: '03', name: 'CONTENT WORKSPACE', desc: 'Layout concept for a collaborative content creation space', type: 'workspace' },
-  ];
-
-  const MockScreen = ({ type }) => {
-    if (type === 'dashboard') return (
-      <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-        <div className="mock-nav">
-          <div className="mock-dot" />
-          <div className="mock-dot" />
-          <div className="mock-dot" />
-          <div style={{ flex: 1, display: 'flex', alignItems: 'center', paddingLeft: '8px', gap: '6px' }}>
-            {['Dashboard', 'Analytics', 'Media', 'Settings'].map(t => (
-              <div key={t} style={{ fontSize: '5px', color: 'rgba(245,240,232,0.3)', fontFamily: 'monospace', letterSpacing: '0.05em' }}>{t}</div>
-            ))}
-          </div>
-        </div>
-        <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
-          <div className="mock-sidebar">
-            <div className="mock-sidebar-item active" />
-            <div className="mock-sidebar-item" />
-            <div className="mock-sidebar-item" />
-            <div className="mock-sidebar-item" />
-          </div>
-          <div className="mock-body">
-            <div style={{ fontSize: '6px', color: 'rgba(245,240,232,0.5)', fontFamily: 'monospace', marginBottom: '8px', letterSpacing: '0.1em' }}>OVERVIEW</div>
-            <div className="mock-row">
-              <div className="mock-card"><div className="mock-bar accent" /><div className="mock-bar thin" /></div>
-              <div className="mock-card"><div className="mock-bar accent" style={{ width: '40%' }} /><div className="mock-bar thin" /></div>
-              <div className="mock-card"><div className="mock-bar accent" style={{ width: '80%' }} /><div className="mock-bar thin" /></div>
-            </div>
-            <div className="mock-card">
-              <div style={{ fontSize: '5px', color: 'rgba(245,240,232,0.3)', fontFamily: 'monospace', marginBottom: '6px' }}>PERFORMANCE</div>
-              <div className="mock-chart">
-                {[45, 70, 55, 80, 60, 90, 65].map((h, i) => (
-                  <div key={i} className="mock-chart-bar" style={{ height: `${h}%` }} />
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-
-    if (type === 'ai-tool') return (
-      <div style={{ display: 'flex', flexDirection: 'column', height: '100%', padding: '12px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
-          <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'rgba(26,74,255,0.6)' }} />
-          <div style={{ fontSize: '6px', color: 'rgba(26,74,255,0.8)', fontFamily: 'monospace', letterSpacing: '0.1em' }}>AI CREATIVE ASSISTANT</div>
-        </div>
-        <div style={{ flex: 1, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
-          {[
-            { label: 'Generate', color: 'rgba(26,74,255,0.4)' },
-            { label: 'Refine', color: 'rgba(100,200,100,0.3)' },
-            { label: 'Export', color: 'rgba(255,160,0,0.3)' },
-            { label: 'History', color: 'rgba(200,80,200,0.3)' },
-          ].map((item, i) => (
-            <div key={i} className="mock-card" style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-              <div style={{ height: '4px', background: item.color, borderRadius: '2px', width: '40%' }} />
-              <div style={{ fontSize: '5px', color: 'rgba(245,240,232,0.4)', fontFamily: 'monospace' }}>{item.label}</div>
-              <div className="mock-bar thin" />
-              <div className="mock-bar thin" style={{ width: '60%' }} />
-            </div>
-          ))}
-        </div>
-        <div style={{ marginTop: '10px', height: '28px', background: 'rgba(26,74,255,0.25)', borderRadius: '3px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <div style={{ fontSize: '5px', color: 'rgba(26,74,255,0.9)', fontFamily: 'monospace', letterSpacing: '0.1em' }}>GENERATE →</div>
-        </div>
-      </div>
-    );
-
-    return (
-      <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-        <div className="mock-nav">
-          <div className="mock-dot" />
-          <div className="mock-dot" />
-          <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', gap: '6px' }}>
-            {[1, 2, 3].map((i) => <div key={i} className="mock-dot" style={{ width: '20px', borderRadius: '2px' }} />)}
-          </div>
-        </div>
-        <div className="mock-body">
-          <div style={{ fontSize: '6px', color: 'rgba(245,240,232,0.5)', fontFamily: 'monospace', marginBottom: '8px', letterSpacing: '0.1em' }}>CONTENT WORKSPACE</div>
-          <div className="mock-bar accent" style={{ height: '10px', width: '65%', marginBottom: '4px' }} />
-          <div className="mock-bar thin" style={{ marginBottom: '12px' }} />
-          <div className="mock-row">
-            {[
-              { h: '50%', opacity: 0.12 },
-              { h: '50%', opacity: 0.18 },
-              { h: '50%', opacity: 0.24 },
-            ].map((item, i) => (
-              <div key={i} className="mock-card" style={{ aspectRatio: '1' }}>
-                <div style={{ width: '100%', height: item.h, background: `rgba(26,74,255,${item.opacity})`, borderRadius: '2px', marginBottom: '8px' }} />
-                <div className="mock-bar thin" />
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    );
-  };
-
-  return (
-    <section className="section ux-section" aria-label="UI/UX interface concepts">
-      <div className="ux-header reveal">
-        <div className="eyebrow">INTERFACE THINKING</div>
-        <h2 className="ux-title">DESIGN<br />CONCEPTS</h2>
-        <p className="ux-sub">Concept explorations in UI/UX — not claimed client work.</p>
-      </div>
-
-      <div className="ux-concepts" role="list">
-        {concepts.map((c, i) => (
-          <div key={c.num} className={`ux-concept reveal reveal-delay-${i + 1}`} role="listitem">
-            <div className="ux-concept__screen" aria-label={`UI mockup for ${c.name}`}>
-              <MockScreen type={c.type} />
-            </div>
-            <div className="ux-concept__label">{c.num} — CONCEPT</div>
-            <div className="ux-concept__name">{c.name}</div>
-            <div className="ux-concept__desc">{c.desc}</div>
-          </div>
-        ))}
       </div>
     </section>
   );
@@ -835,10 +766,10 @@ function UXSection() {
    =================================================== */
 function Process() {
   const steps = [
-    { num: '01', title: 'IDEA', desc: 'Starting with a clear problem or creative brief. Understanding what needs to be made and why it matters.' },
-    { num: '02', title: 'EXPLORE', desc: 'Research, references, sketches and experimentation. Finding the right direction before committing to execution.' },
-    { num: '03', title: 'BUILD', desc: 'Hands-on execution — editing, coding, designing. Iterating quickly and making decisions directly in the work.' },
-    { num: '04', title: 'REFINE', desc: 'Polishing the details. Improving pacing, spacing, performance and overall quality until the result feels right.' },
+    { num: '01', title: 'PROBLEM & DATA', desc: 'Identify the task, clean raw inputs, handle missing values, and prepare structured feature tensors.' },
+    { num: '02', title: 'MODEL & TRAIN', desc: 'Select model architectures, tune hyperparameters, run cross-validation, and evaluate loss curves.' },
+    { num: '03', title: 'BUILD PIPELINE', desc: 'Wrap inference inside FastAPI/Flask endpoints and write video or vector search processing logic.' },
+    { num: '04', title: 'FRONTEND & TEST', desc: 'Connect endpoints to an interactive React interface, verify edge cases, and ensure smooth response times.' },
   ];
 
   const sectionRef = useRef(null);
@@ -865,8 +796,8 @@ function Process() {
   return (
     <section className="process-section" ref={sectionRef} aria-label="How I work">
       <div className="container">
-        <div className="eyebrow eyebrow--light reveal">MY PROCESS</div>
-        <h2 className="process-title reveal">HOW I WORK</h2>
+        <div className="eyebrow eyebrow--light reveal">ENGINEERING WORKFLOW</div>
+        <h2 className="process-title reveal">HOW I BUILD</h2>
         <div className="process-steps" role="list">
           {steps.map((step, i) => (
             <div
@@ -887,37 +818,74 @@ function Process() {
 }
 
 /* ===================================================
-   SKILLS
+   PROJECTS GATEWAY / REDIRECT SECTION
    =================================================== */
-function Skills() {
-  const groups = [
-    {
-      title: 'CREATIVE',
-      items: ['Adobe Premiere Pro', 'After Effects', 'Photoshop', 'Illustrator', 'Audition', 'Canva'],
-    },
-    {
-      title: 'DEVELOPMENT',
-      items: ['React', 'JavaScript', 'HTML', 'CSS', 'Node.js', 'Python'],
-    },
-    {
-      title: 'AI / ML',
-      items: ['Python', 'Scikit-learn', 'XGBoost', 'OpenCV', 'ML Workflows', 'AI APIs'],
-    },
-    {
-      title: 'WEB',
-      items: ['React', 'WordPress', 'MongoDB', 'REST APIs'],
-    },
-  ];
+function ProjectsGateway() {
+  const scrollToWork = (e) => {
+    e.preventDefault();
+    document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   return (
-    <section id="skills" className="section skills-section" aria-label="Skills">
+    <section className="section project-gateway" aria-label="Projects overview and quick access">
+      <div className="project-gateway__card reveal">
+        <div className="project-gateway__left">
+          <div className="eyebrow eyebrow--light" style={{ marginBottom: '0.8rem' }}>FEATURED CODEBASE &amp; PIPELINES</div>
+          <h2 className="project-gateway__title">EXPLORE ALL<br />PROJECTS</h2>
+          <p className="project-gateway__sub">
+            Detailed technical breakdowns of 6 ML pipelines, real-time computer vision models,
+            RAG vector search, and interactive full-stack AI applications.
+          </p>
+          <div className="project-gateway__pills">
+            {PROJECTS.map((p) => (
+              <a
+                key={p.id}
+                href="#work"
+                onClick={scrollToWork}
+                className="gateway-pill"
+              >
+                <span className="gateway-pill__num">{p.num}</span>
+                <span className="gateway-pill__title">{p.title}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <div className="project-gateway__right">
+          <a href="#work" onClick={scrollToWork} className="btn--gateway-primary">
+            <span>VIEW PROJECT SECTION</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <polyline points="19 12 12 19 5 12"></polyline>
+            </svg>
+          </a>
+          <a
+            href="https://github.com/Miteshreddy"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn--gateway-outline"
+          >
+            <span>GITHUB PROFILE ↗</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ===================================================
+   SKILLS (CENTRAL SYSTEM)
+   =================================================== */
+function Skills() {
+  return (
+    <section id="skills" className="section skills-section" aria-label="Skills and tools">
       <div className="eyebrow reveal">CAPABILITIES</div>
-      <h2 className="skills-title reveal">SKILL<br />ECOSYSTEM</h2>
-      <p className="skills-subtitle reveal reveal-delay-1">Tools and domains I work across.</p>
+      <h2 className="skills-title reveal">TECHNICAL<br />SKILLS</h2>
+      <p className="skills-subtitle reveal reveal-delay-1">Defensible tools, libraries, and frameworks I actively build with.</p>
 
       <div className="skills-grid" role="list">
-        {groups.map((group, i) => (
-          <div key={group.title} className={`skill-group reveal reveal-delay-${i + 1}`} role="listitem">
+        {SKILL_CATEGORIES.map((group, i) => (
+          <div key={group.title} className={`skill-group reveal reveal-delay-${(i % 4) + 1}`} role="listitem">
             <div className="skill-group__title">{group.title}</div>
             <ul className="skill-group__items" aria-label={`${group.title} skills`}>
               {group.items.map((item) => (
@@ -932,59 +900,59 @@ function Skills() {
 }
 
 /* ===================================================
-   GALLERY — Visual work showcase
+   GALLERY — Visual Work & Project Artifacts
    =================================================== */
 const GALLERY_ITEMS = [
   {
     id: 'g1',
-    src: '/images/kaiz_studio.jpg',
-    title: 'VIDEO EDITING',
-    category: 'AI / Creative Workflow',
+    src: '/projects/agroxai/thumbnail.svg',
+    title: 'AGROXAI DASHBOARD',
+    category: 'Crop Recommendation & ML',
     ratio: 'landscape',
   },
   {
     id: 'g2',
-    src: '/images/gallery_design.jpg',
-    title: 'GRAPHIC DESIGN',
-    category: 'Vector / Typography',
-    ratio: 'portrait',
+    src: '/projects/object-detection/thumbnail.svg',
+    title: 'OBJECT TRACKING',
+    category: 'PyTorch YOLO & OpenCV',
+    ratio: 'landscape',
   },
   {
     id: 'g3',
-    src: '/images/gallery_motion.jpg',
-    title: 'MOTION GRAPHICS',
-    category: 'Animation / VFX',
+    src: '/projects/rag-assistant/thumbnail.svg',
+    title: 'RAG ASSISTANT',
+    category: 'Vector Search & QA',
     ratio: 'landscape',
   },
   {
     id: 'g4',
-    src: '/images/gallery_ui.jpg',
-    title: 'UI DESIGN',
-    category: 'Dashboard / SaaS',
-    ratio: 'square',
+    src: '/projects/cnn-classifier/thumbnail.svg',
+    title: 'CNN CLASSIFIER',
+    category: 'Deep Learning & Metrics',
+    ratio: 'landscape',
   },
   {
     id: 'g5',
-    src: '/images/agroxai.jpg',
-    title: 'AI DEVELOPMENT',
-    category: 'Machine Learning / Web',
+    src: '/projects/face-recognition/thumbnail.svg',
+    title: 'FACE RECOGNITION',
+    category: 'Embeddings & Attendance',
     ratio: 'landscape',
   },
   {
     id: 'g6',
-    src: '/images/gallery_web.jpg',
-    title: 'WEB DEVELOPMENT',
-    category: 'React / Full Stack',
-    ratio: 'square',
+    src: '/projects/kaiz-studio/thumbnail.svg',
+    title: 'KAIZ STUDIO',
+    category: 'Premiere Pro & Video Post',
+    ratio: 'landscape',
   },
 ];
 
 function Gallery() {
   return (
-    <section className="gallery-section" aria-label="Visual work gallery">
+    <section className="gallery-section" aria-label="Technical artifacts gallery">
       <div className="gallery-header reveal">
-        <div className="eyebrow eyebrow--light">VISUAL WORK</div>
-        <h2 className="gallery-title">CREATIVE<br />GALLERY</h2>
+        <div className="eyebrow eyebrow--light">ARTIFACTS &amp; INTERFACES</div>
+        <h2 className="gallery-title">PROJECT<br />GALLERY</h2>
       </div>
 
       <div className="gallery-grid" role="list">
@@ -1021,10 +989,10 @@ function Contact() {
       <div className="contact-eyebrow reveal">GET IN TOUCH</div>
       <h2 className="contact-title reveal">
         HAVE AN IDEA?<br />
-        LET'S BUILD IT.
+        LET'S TALK.
       </h2>
       <p className="contact-sub reveal reveal-delay-1">
-        Open to internships, creative opportunities and interesting projects.
+        Open to internships, AI/ML engineering collaborations, and creative production projects.
       </p>
 
       <div className="contact-actions reveal reveal-delay-2">
@@ -1035,15 +1003,6 @@ function Contact() {
           </svg>
         </a>
         <a
-          href="https://www.linkedin.com/in/mitesh-reddy-57291335/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="btn--contact ghost"
-          aria-label="LinkedIn profile (opens in new tab)"
-        >
-          LINKEDIN ↗
-        </a>
-        <a
           href="https://github.com/Miteshreddy"
           target="_blank"
           rel="noopener noreferrer"
@@ -1052,10 +1011,19 @@ function Contact() {
         >
           GITHUB ↗
         </a>
+        <a
+          href="https://www.linkedin.com/in/mitesh-reddy-57291335/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn--contact ghost"
+          aria-label="LinkedIn profile (opens in new tab)"
+        >
+          LINKEDIN ↗
+        </a>
       </div>
 
       <div className="contact-email reveal reveal-delay-3">
-        <div className="contact-email__label">OR WRITE DIRECTLY</div>
+        <div className="contact-email__label">DIRECT EMAIL</div>
         <a href="mailto:miteshguduru@gmail.com" className="contact-email__addr">
           miteshguduru@gmail.com
         </a>
@@ -1071,14 +1039,14 @@ function Footer() {
   return (
     <footer className="footer" role="contentinfo">
       <div>
-        <div className="footer__logo">MITESH<sup>®</sup></div>
-        <div className="footer__tagline">Creative Technologist</div>
+        <div className="footer__logo">MITESH<sup>&reg;</sup></div>
+        <div className="footer__tagline">B.Tech &bull; Machine Learning &amp; AI Developer</div>
       </div>
       <div className="footer__tagline" style={{ textAlign: 'center' }}>
-        "Built with curiosity."
+        "Learning by building."
       </div>
       <div className="footer__copy">
-        © 2026 G. Mitesh
+        &copy; 2026 G. Mitesh
       </div>
     </footer>
   );
@@ -1112,7 +1080,7 @@ function useScrollReveal() {
    =================================================== */
 export default function App() {
   useScrollReveal();
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   return (
     <>
@@ -1131,8 +1099,8 @@ export default function App() {
         <Stats />
         <Toolkit />
         <AISection />
-        <UXSection />
         <Process />
+        <ProjectsGateway />
         <Skills />
         <Gallery />
         <Contact />

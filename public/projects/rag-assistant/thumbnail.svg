@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="100%" height="100%">
+  <rect width="1200" height="675" fill="#0D1117"/>
+  <!-- Top Bar -->
+  <rect x="0" y="0" width="1200" height="48" fill="#161B22" border-bottom="1px solid #30363D"/>
+  <circle cx="28" cy="24" r="6" fill="#FF5F56"/>
+  <circle cx="48" cy="24" r="6" fill="#FFBD2E"/>
+  <circle cx="68" cy="24" r="6" fill="#27C93F"/>
+  <text x="100" y="29" fill="#8B949E" font-family="monospace" font-size="14">RAG Assistant &bull; Vector Document Question Answering</text>
+  <rect x="1030" y="14" width="140" height="22" rx="4" fill="#1F6FEB"/>
+  <text x="1042" y="29" fill="#FFFFFF" font-family="monospace" font-size="11" font-weight="bold">LANGCHAIN + FASTAPI</text>
+
+  <!-- Left: Ingestion & Vector Chunks -->
+  <rect x="40" y="75" width="360" height="560" rx="8" fill="#161B22" stroke="#30363D" stroke-width="1"/>
+  <text x="65" y="115" fill="#58A6FF" font-family="'Space Grotesk', sans-serif" font-size="16" font-weight="bold">INDEXED DOCUMENTS</text>
+  
+  <rect x="65" y="135" width="310" height="60" rx="4" fill="#0D1117" stroke="#30363D"/>
+  <text x="80" y="160" fill="#E6EDF3" font-family="monospace" font-size="12" font-weight="bold">&#128196; technical_manual.pdf</text>
+  <text x="80" y="180" fill="#8B949E" font-family="monospace" font-size="10">14 pages &bull; 48 text chunks embedded</text>
+
+  <text x="65" y="225" fill="#8B949E" font-family="monospace" font-size="12" font-weight="bold">TOP RETRIEVED CHUNKS</text>
+  
+  <rect x="65" y="245" width="310" height="110" rx="4" fill="#0D1117" stroke="#238636"/>
+  <text x="77" y="268" fill="#7EE787" font-family="monospace" font-size="11" font-weight="bold">Chunk #12 (Cosine Sim: 0.892)</text>
+  <text x="77" y="290" fill="#C9D1D9" font-family="'Space Grotesk', sans-serif" font-size="11">"...the maximum operational voltage must not exceed 48V DC during normal step-down operation..."</text>
+  <text x="77" y="340" fill="#8B949E" font-family="monospace" font-size="10">Source: Page 4, Paragraph 2</text>
+
+  <rect x="65" y="365" width="310" height="110" rx="4" fill="#0D1117" stroke="#30363D"/>
+  <text x="77" y="388" fill="#58A6FF" font-family="monospace" font-size="11" font-weight="bold">Chunk #18 (Cosine Sim: 0.764)</text>
+  <text x="77" y="410" fill="#C9D1D9" font-family="'Space Grotesk', sans-serif" font-size="11">"...thermal dissipation thresholds engage safety shutoff if temperature exceeds 85&deg;C..."</text>
+  <text x="77" y="460" fill="#8B949E" font-family="monospace" font-size="10">Source: Page 7, Table 1</text>
+
+  <!-- Right: Chat QA Stream Interface -->
+  <rect x="430" y="75" width="730" height="560" rx="8" fill="#161B22" stroke="#30363D" stroke-width="1"/>
+  
+  <!-- User message -->
+  <rect x="560" y="105" width="570" height="60" rx="6" fill="#1F6FEB"/>
+  <text x="580" y="132" fill="#FFFFFF" font-family="'Space Grotesk', sans-serif" font-size="14" font-weight="500">What is the maximum allowed voltage and what happens when it overheats?</text>
+  <text x="580" y="152" fill="rgba(255,255,255,0.7)" font-family="monospace" font-size="10">User Query &bull; 10:42 AM</text>
+
+  <!-- LLM Assistant Response -->
+  <rect x="460" y="185" width="670" height="340" rx="6" fill="#0D1117" stroke="#30363D"/>
+  <text x="485" y="218" fill="#58A6FF" font-family="monospace" font-size="12" font-weight="bold">&#129302; RAG ASSISTANT (Grounded Context)</text>
+  
+  <text x="485" y="255" fill="#E6EDF3" font-family="'Space Grotesk', sans-serif" font-size="14" line-height="1.6">Based on the retrieved document sections:</text>
+  <text x="485" y="290" fill="#E6EDF3" font-family="'Space Grotesk', sans-serif" font-size="14">1. <tspan font-weight="bold">Maximum Voltage:</tspan> The operating voltage must not exceed <tspan fill="#7EE787" font-weight="bold">48V DC</tspan> during normal step-down operation [Chunk #12].</text>
+  <text x="485" y="330" fill="#E6EDF3" font-family="'Space Grotesk', sans-serif" font-size="14">2. <tspan font-weight="bold">Thermal Protection:</tspan> If temperatures cross <tspan fill="#7EE787" font-weight="bold">85&deg;C</tspan>, the safety shutoff is automatically triggered [Chunk #18].</text>
+  
+  <!-- Citation Badges -->
+  <rect x="485" y="380" width="220" height="28" rx="4" fill="#161B22" stroke="#238636"/>
+  <text x="498" y="398" fill="#7EE787" font-family="monospace" font-size="11">&#10003; Grounded in 2 Document Chunks</text>
+
+  <rect x="720" y="380" width="160" height="28" rx="4" fill="#161B22" stroke="#30363D"/>
+  <text x="733" y="398" fill="#8B949E" font-family="monospace" font-size="11">Hallucination Risk: Low</text>
+
+  <!-- Query input box -->
+  <rect x="460" y="550" width="670" height="55" rx="6" fill="#0D1117" stroke="#30363D"/>
+  <text x="480" y="583" fill="#8B949E" font-family="'Space Grotesk', sans-serif" font-size="13">Ask a follow up question about technical_manual.pdf...</text>
+  <rect x="1050" y="560" width="65" height="35" rx="4" fill="#1F6FEB"/>
+  <text x="1065" y="582" fill="#FFFFFF" font-family="monospace" font-size="12">SEND</text>
+</svg>

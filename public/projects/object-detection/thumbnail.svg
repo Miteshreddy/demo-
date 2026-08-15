@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="100%" height="100%">
+  <rect width="1200" height="675" fill="#0B0F14"/>
+  <!-- Top Bar -->
+  <rect x="0" y="0" width="1200" height="48" fill="#141A22" border-bottom="1px solid #232B36"/>
+  <circle cx="28" cy="24" r="6" fill="#FF5F56"/>
+  <circle cx="48" cy="24" r="6" fill="#FFBD2E"/>
+  <circle cx="68" cy="24" r="6" fill="#27C93F"/>
+  <text x="100" y="29" fill="#8B949E" font-family="monospace" font-size="14">OpenCV + PyTorch YOLO Video Tracking Pipeline</text>
+  <text x="1040" y="29" fill="#00E5FF" font-family="monospace" font-size="13" font-weight="bold">FPS: 38.4 | GPU</text>
+
+  <!-- Video Stream Canvas Simulator -->
+  <rect x="40" y="70" width="820" height="565" rx="6" fill="#101720" stroke="#232B36"/>
+  
+  <!-- Street & Environment wireframe -->
+  <path d="M 40 450 L 380 260 L 520 260 L 860 450 Z" fill="#172230" opacity="0.6"/>
+  <line x1="450" y1="260" x2="450" y2="635" stroke="#2E4057" stroke-width="2" stroke-dasharray="8,8"/>
+
+  <!-- Bounding Box 1: Car -->
+  <rect x="180" y="320" width="220" height="150" fill="rgba(0, 229, 255, 0.08)" stroke="#00E5FF" stroke-width="2"/>
+  <rect x="180" y="296" width="110" height="24" fill="#00E5FF"/>
+  <text x="186" y="313" fill="#0B0F14" font-family="monospace" font-size="12" font-weight="bold">car: 0.94 #01</text>
+  <circle cx="290" cy="395" r="4" fill="#00E5FF"/>
+
+  <!-- Bounding Box 2: Person / Pedestrian -->
+  <rect x="520" y="280" width="90" height="190" fill="rgba(255, 61, 113, 0.08)" stroke="#FF3D71" stroke-width="2"/>
+  <rect x="520" y="256" width="130" height="24" fill="#FF3D71"/>
+  <text x="526" y="273" fill="#FFFFFF" font-family="monospace" font-size="12" font-weight="bold">person: 0.89 #02</text>
+  <circle cx="565" cy="375" r="4" fill="#FF3D71"/>
+
+  <!-- Bounding Box 3: Traffic Light / Object -->
+  <rect x="680" y="210" width="60" height="110" fill="rgba(0, 230, 118, 0.08)" stroke="#00E676" stroke-width="2"/>
+  <rect x="680" y="186" width="145" height="24" fill="#00E676"/>
+  <text x="686" y="203" fill="#0B0F14" font-family="monospace" font-size="11" font-weight="bold">traffic light: 0.91</text>
+
+  <!-- HUD Telemetry on video -->
+  <rect x="60" y="90" width="260" height="75" rx="4" fill="rgba(11, 15, 20, 0.8)" stroke="#232B36"/>
+  <text x="75" y="112" fill="#8B949E" font-family="monospace" font-size="11">INFERENCE LATENCY: 26.0 ms</text>
+  <text x="75" y="132" fill="#8B949E" font-family="monospace" font-size="11">ACTIVE TRACKS: 3 OBJECTS</text>
+  <text x="75" y="152" fill="#00E5FF" font-family="monospace" font-size="11">MODEL: PyTorch YOLOv8n</text>
+
+  <!-- Right Inspector Sidebar -->
+  <rect x="880" y="70" width="280" height="565" rx="6" fill="#141A22" stroke="#232B36"/>
+  <text x="900" y="105" fill="#E6EDF3" font-family="'Space Grotesk', sans-serif" font-size="15" font-weight="bold">OBJECT TRACKER</text>
+  <text x="900" y="125" fill="#8B949E" font-family="monospace" font-size="11">OpenCV DeepSORT / ByteTrack</text>
+
+  <!-- Track item 1 -->
+  <rect x="900" y="150" width="240" height="70" rx="4" fill="#0D1117" stroke="#232B36"/>
+  <text x="912" y="172" fill="#00E5FF" font-family="monospace" font-size="12" font-weight="bold">Track ID #01: car</text>
+  <text x="912" y="192" fill="#8B949E" font-family="monospace" font-size="10">BBox: [180, 320, 220, 150]</text>
+  <text x="912" y="208" fill="#8B949E" font-family="monospace" font-size="10">Conf: 94.2% | State: Active</text>
+
+  <!-- Track item 2 -->
+  <rect x="900" y="230" width="240" height="70" rx="4" fill="#0D1117" stroke="#232B36"/>
+  <text x="912" y="252" fill="#FF3D71" font-family="monospace" font-size="12" font-weight="bold">Track ID #02: person</text>
+  <text x="912" y="272" fill="#8B949E" font-family="monospace" font-size="10">BBox: [520, 280, 90, 190]</text>
+  <text x="912" y="288" fill="#8B949E" font-family="monospace" font-size="10">Conf: 89.1% | State: Active</text>
+
+  <!-- Pipeline metrics -->
+  <rect x="900" y="320" width="240" height="295" rx="4" fill="#0D1117" stroke="#232B36"/>
+  <text x="912" y="345" fill="#E6EDF3" font-family="monospace" font-size="11" font-weight="bold">PIPELINE SETTINGS</text>
+  <text x="912" y="375" fill="#8B949E" font-family="monospace" font-size="11">&bull; Conf Threshold: 0.45</text>
+  <text x="912" y="405" fill="#8B949E" font-family="monospace" font-size="11">&bull; NMS IoU: 0.50</text>
+  <text x="912" y="435" fill="#8B949E" font-family="monospace" font-size="11">&bull; Max Age: 30 frames</text>
+  <text x="912" y="465" fill="#8B949E" font-family="monospace" font-size="11">&bull; Backend: OpenCV cv2</text>
+  <text x="912" y="495" fill="#8B949E" font-family="monospace" font-size="11">&bull; Device: CUDA / GPU</text>
+  <rect x="912" y="530" width="216" height="60" rx="4" fill="#1F2937"/>
+  <text x="922" y="555" fill="#00E5FF" font-family="monospace" font-size="11">Real-time Frame Loop</text>
+  <text x="922" y="575" fill="#9CA3AF" font-family="monospace" font-size="10">VideoCapture &rarr; Infer &rarr; Draw</text>
+</svg>
