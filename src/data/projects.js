@@ -1,41 +1,49 @@
 /**
  * Central Project Data System
  * 
- * To add a new project:
- * Add an object to the PROJECTS array below. The UI will automatically
- * render the new project card, status badge, modal details, and filters.
+ * Final 6 Projects:
+ * 01 — AgroXAI (Crop Recommendation System)
+ * 02 — VisionAttendance (AI Face Recognition Attendance System)
+ * 03 — VisionTrack (Real-Time Object Detection & Tracking)
+ * 04 — DocMind (Document Intelligence / RAG Assistant)
+ * 05 — JOBSHIELDXAI (AI Job Scam & Fraud Detection)
+ * 06 — AIVoiceStudio (AI Voice Studio)
  */
 
 export const PROJECTS = [
   {
     id: 'agroxai',
+    number: '01',
     num: '01',
-    title: 'AGROXAI',
+    title: 'AgroXAI',
     subtitle: 'Crop Recommendation System',
     category: 'MACHINE LEARNING / FULL-STACK AI',
-    status: 'Completed', // 'Completed' | 'In Progress' | 'Experimenting'
+    status: 'Completed',
     year: '2025',
     featured: true,
-    shortDescription: 'Takes agricultural parameters through a web interface and sends them through an ML pipeline to generate crop recommendations.',
-    description: 'Built a crop recommendation application that takes agricultural inputs through a web interface and sends them through an ML pipeline to generate crop recommendations. Worked on preprocessing, model evaluation and integrating the model with the web application.',
-    whyBuilt: 'Agricultural decision-making depends heavily on soil chemistry and regional weather metrics. I wanted to build a simple, accessible tool where someone can input Nitrogen, Phosphorus, Potassium (NPK) ratios along with temperature, humidity, and rainfall to get fast, data-backed crop suggestions.',
-    howItWorks: [
-      { step: 'Input', desc: 'User inputs soil NPK ratios, rainfall, humidity, and temperature values via web form.' },
-      { step: 'Preprocessing', desc: 'Values are normalized and transformed into numerical feature vectors using Scikit-learn.' },
-      { step: 'Model', desc: 'Evaluated Decision Trees and XGBoost multi-class classifiers on soil and crop datasets.' },
-      { step: 'Inference', desc: 'FastAPI / Flask endpoint runs model prediction and returns top recommendation probabilities.' },
-      { step: 'Frontend', desc: 'Interactive React dashboard displays recommended crops with confidence breakdown.' }
-    ],
+    shortDescription: 'A machine-learning application that recommends suitable crops from agricultural inputs through a web interface.',
+    description: 'A machine-learning application that recommends suitable crops from agricultural inputs through a web interface.',
+    problem: 'Agricultural decision-making and crop selection depend heavily on complex soil chemistry and environmental metrics (NPK ratios, pH, rainfall, humidity, temperature). Without accessible data-driven tools, farmers risk sub-optimal crop selection and lower yields.',
+    whatIBuilt: 'Built an end-to-end crop recommendation platform integrating data cleaning, XGBoost model training and evaluation, FastAPI inference backend, and an interactive React web dashboard.',
     technologies: [
       'Python',
-      'Pandas',
-      'NumPy',
-      'Scikit-learn',
       'XGBoost',
-      'Decision Trees',
       'React',
-      'Flask/FastAPI',
       'MongoDB'
+    ],
+    architecture: 'Web Form Input → Feature Normalization & Preprocessing (Scikit-Learn) → XGBoost Multi-Class Classifier → FastAPI REST Endpoint → React Dashboard',
+    howItWorks: [
+      { step: 'Input', desc: 'User inputs soil NPK ratios, rainfall, humidity, and temperature values via web form.' },
+      { step: 'Preprocessing', desc: 'Values are normalized and transformed into numerical feature vectors.' },
+      { step: 'Model', desc: 'Trained and evaluated XGBoost and Decision Tree multi-class classifiers on agricultural datasets.' },
+      { step: 'Inference', desc: 'FastAPI endpoint serves model predictions and returns top recommendation probabilities.' },
+      { step: 'Dashboard', desc: 'Interactive React dashboard visualizes recommended crops with confidence breakdown.' }
+    ],
+    keyFeatures: [
+      'Multi-parameter crop recommendation based on NPK, pH, rainfall, and temperature',
+      'Explainable prediction confidence breakdown for top crops',
+      'FastAPI real-time inference API for low-latency predictions',
+      'Modern, responsive web dashboard for agricultural decision support'
     ],
     whatIWorkedOn: [
       'Cleaned agricultural dataset, handled missing values, and performed exploratory data analysis with Pandas.',
@@ -43,84 +51,149 @@ export const PROJECTS = [
       'Constructed a REST API wrapper with FastAPI to serve model predictions in real time.',
       'Designed and built a clean React interface to input parameters and visualize recommendation outputs.'
     ],
-    role: 'ML Pipeline & Full-Stack Integration',
-    image: '/projects/agroxai/thumbnail.svg',
+    whatILearned: 'How to properly clean and balance multi-class agricultural data, handle feature normalization across disparate scales, tune gradient-boosted trees for high accuracy, and connect backend ML inference pipelines to responsive frontends.',
+    role: 'ML Pipeline & Full-Stack Developer',
+    image: '/projects/agroxai/screenshot.png',
     screenshots: [
-      { title: 'Crop Prediction UI', src: '/projects/agroxai/screenshot-1.svg', desc: 'Web form and prediction dashboard showing recommended crops and confidence levels' },
-      { title: 'Pipeline Architecture', src: '/projects/agroxai/architecture.svg', desc: 'End-to-end data pipeline from user input to feature preprocessing, XGBoost inference, and UI rendering' }
+      { title: 'AgroXAI Command Center', src: '/projects/agroxai/screenshot.png', desc: 'Satellite intelligence and predictive crop modeling command center' }
     ],
     github: 'https://github.com/Miteshreddy',
     liveDemo: null,
     visualType: 2,
   },
   {
-    id: 'object-detection',
+    id: 'vision-attendance',
+    number: '02',
     num: '02',
-    title: 'REAL-TIME OBJECT DETECTION & TRACKING',
-    subtitle: 'Computer Vision Video Pipeline',
+    title: 'VisionAttendance',
+    subtitle: 'AI Face Recognition Attendance System',
+    category: 'COMPUTER VISION / BIOMETRIC AI',
+    status: 'Completed',
+    year: '2025',
+    featured: true,
+    shortDescription: 'A face-recognition attendance system that identifies registered people from live camera or image input and records attendance.',
+    description: 'A face-recognition attendance system that identifies registered people from live camera or image input and records attendance.',
+    problem: 'Manual attendance logging and physical card swiping are prone to proxy attendance, bottleneck queues, and administrative overhead. Automated biometric recognition provides fast, reliable, contactless verification.',
+    whatIBuilt: 'Built a real-time biometric attendance pipeline using FaceNet512 face embeddings, Euclidean distance thresholding, anti-duplicate debouncing, and SQLite vector persistence.',
+    technologies: [
+      'Python',
+      'OpenCV',
+      'DeepFace',
+      'SQLite'
+    ],
+    architecture: 'Live Camera / Photo Upload → Face Detection & Alignment → DeepFace (FaceNet512 512-dim Embedding) → Euclidean Distance Matcher → SQLite / Vector Storage',
+    howItWorks: [
+      { step: 'Capture', desc: 'OpenCV captures live webcam streams or processes uploaded identity photos.' },
+      { step: 'Face Detection', desc: 'Detects facial landmarks, crops facial bounding boxes, and normalizes alignment.' },
+      { step: 'Embedding', desc: 'DeepFace extracts 512-dimensional biometric feature embeddings using FaceNet512.' },
+      { step: 'Matching', desc: 'Calculates Euclidean distance against stored user embeddings with calibrated thresholding.' },
+      { step: 'Logging', desc: 'Anti-duplicate debounce buffer ensures single verified attendance record logged to SQLite.' }
+    ],
+    keyFeatures: [
+      'Live camera and batch photo attendance recognition',
+      'FaceNet512 512-dimensional biometric embedding extraction',
+      'Anti-duplicate cooldown buffer to prevent repeated logging',
+      'Admin dashboard with live metrics, attendance history, and profile management'
+    ],
+    whatIWorkedOn: [
+      'Configured face detection and cropping pipeline using OpenCV and DeepFace.',
+      'Generated and stored baseline FaceNet512 vector embeddings for registered profiles.',
+      'Implemented distance threshold logic to distinguish recognized users from unknown visitors.',
+      'Built a full management dashboard for live attendance monitoring, enrollment, and attendance records.'
+    ],
+    whatILearned: 'How to extract and compare facial vector embeddings with metric learning, calibrate distance thresholds to minimize false positive matches, and manage real-time camera inference queues.',
+    role: 'Computer Vision & Biometric Systems',
+    image: '/projects/vision-attendance/screenshot.png',
+    screenshots: [
+      { title: 'VisionAttendance Operations Dashboard', src: '/projects/vision-attendance/screenshot.png', desc: 'Biometric operations dashboard with recognition engine telemetry and attendance tracking' }
+    ],
+    github: 'https://github.com/Miteshreddy',
+    liveDemo: null,
+    visualType: 1,
+  },
+  {
+    id: 'visiontrack',
+    number: '03',
+    num: '03',
+    title: 'VisionTrack',
+    subtitle: 'Real-Time Object Detection & Tracking',
     category: 'COMPUTER VISION / DEEP LEARNING',
     status: 'In Progress',
     year: '2025',
     featured: true,
-    shortDescription: 'Real-time computer-vision pipeline that detects objects from video streams and tracks them across frames using PyTorch and OpenCV.',
-    description: 'Built a real-time computer-vision pipeline that detects objects from video and tracks them across frames. Worked with model inference, bounding boxes, confidence scores and video processing using OpenCV.',
-    whyBuilt: 'I wanted to understand how deep-learning object detectors behave under real-time video constraints, how frame rates affect tracking stability, and how to properly process bounding box coordinates with OpenCV.',
-    howItWorks: [
-      { step: 'Video Stream', desc: 'OpenCV captures continuous video frames from camera or video files.' },
-      { step: 'Frame Processing', desc: 'Frames are resized, normalized, and converted into tensor batches.' },
-      { step: 'YOLO Inference', desc: 'PyTorch model outputs bounding box coordinates, class labels, and confidence scores.' },
-      { step: 'Tracking & NMS', desc: 'Non-maximum suppression filters overlapping boxes; object IDs are tracked frame-to-frame.' },
-      { step: 'Visual Display', desc: 'Overlays bounding boxes, labels, and real-time FPS counter onto output frame.' }
-    ],
+    shortDescription: 'A computer-vision application that detects and tracks objects in video using YOLO and multi-object tracking.',
+    description: 'A computer-vision application that detects and tracks objects in video using YOLO and multi-object tracking.',
+    problem: 'Monitoring multi-stream video feeds for real-time security and traffic intelligence requires high-throughput object detection and reliable identity association across frames without dropped tracks.',
+    whatIBuilt: 'Built a high-performance computer vision platform that streams video feeds, runs YOLOv8s inference for multi-class object detection, tracks object trajectories via ByteTrack, and aggregates telemetry on a live dashboard.',
     technologies: [
       'Python',
-      'PyTorch',
       'YOLO',
       'OpenCV',
-      'NumPy'
+      'ByteTrack'
+    ],
+    architecture: 'Video Stream Ingest → Frame Preprocessing & Tensor Batching → YOLOv8s Inference → Non-Maximum Suppression (NMS) & ByteTrack Association → Live Telemetry Dashboard',
+    howItWorks: [
+      { step: 'Video Stream', desc: 'OpenCV captures continuous video frames from camera feeds or video sources.' },
+      { step: 'Frame Processing', desc: 'Frames are resized, normalized, and converted into tensor batches.' },
+      { step: 'YOLO Inference', desc: 'YOLOv8s model outputs bounding box coordinates, class labels, and confidence scores.' },
+      { step: 'Tracking & NMS', desc: 'Non-maximum suppression filters overlapping boxes; ByteTrack associates IDs across frames.' },
+      { step: 'Analytics UI', desc: 'Live dashboard renders detection volume, FPS trend, and class distribution analytics.' }
+    ],
+    keyFeatures: [
+      'Real-time multi-class object detection (person, vehicle, truck, bicycle, etc.)',
+      'Multi-object tracking across video frames with persistent track IDs',
+      'Live FPS trend monitoring, detection volume analytics, and session logs',
+      'Zone entry/exit detection and anomaly event alerts'
     ],
     whatIWorkedOn: [
       'Configured PyTorch video capture pipeline with OpenCV for live frame extraction.',
       'Implemented non-maximum suppression (NMS) and confidence threshold filtering for clean detection outputs.',
       'Added multi-object tracking across sequential video frames with persistent bounding box IDs.',
-      'Optimized frame inference loop to maintain smooth playback performance.'
+      'Designed a full analytics dashboard displaying detection throughput, class breakdowns, and camera status.'
     ],
+    whatILearned: 'Balancing model inference latency and frame processing rates, optimizing non-maximum suppression (NMS) thresholds, and managing multi-object track association across occlusions.',
     role: 'Computer Vision Developer',
-    image: '/projects/object-detection/thumbnail.svg',
+    image: '/projects/visiontrack/screenshot.png',
     screenshots: [
-      { title: 'Detection Output Frame', src: '/projects/object-detection/screenshot-1.svg', desc: 'Live video feed with predicted bounding boxes, object labels, and detection confidence scores' },
-      { title: 'Inference Pipeline', src: '/projects/object-detection/architecture.svg', desc: 'Frame extraction, tensor transformation, YOLO inference, and OpenCV rendering pipeline' }
+      { title: 'VisionTrack Platform Dashboard', src: '/projects/visiontrack/screenshot.png', desc: 'Real-time AI vision dashboard showing detection volume, class distribution, and session metrics' }
     ],
     github: 'https://github.com/Miteshreddy',
     liveDemo: null,
     visualType: 3,
   },
   {
-    id: 'rag-assistant',
-    num: '03',
-    title: 'DOCUMENT INTELLIGENCE / RAG ASSISTANT',
-    subtitle: 'Vector Retrieval & Question Answering',
-    category: 'GENERATIVE AI / VECTOR SEARCH',
+    id: 'docmind',
+    number: '04',
+    num: '04',
+    title: 'DocMind',
+    subtitle: 'Document Intelligence / RAG Assistant',
+    category: 'GENERATIVE AI / VECTOR RETRIEVAL',
     status: 'In Progress',
     year: '2025',
     featured: true,
-    shortDescription: 'Document QA system where users upload PDFs or text files, extract embeddings into vector storage, and query them using LLMs.',
-    description: 'Built a document-question answering system where users can upload documents and ask questions about their content. The pipeline extracts the text, creates searchable embeddings, retrieves relevant sections and uses an LLM to generate the final answer.',
-    whyBuilt: 'Large PDFs and technical documents are tedious to scan manually. I built this to experiment with Retrieval-Augmented Generation (RAG), chunking strategies, vector embeddings, and similarity search in a practical interface.',
-    howItWorks: [
-      { step: 'Document Ingestion', desc: 'Extracts and cleans raw text from uploaded PDF and text documents.' },
-      { step: 'Text Chunking', desc: 'Splits text into overlapping chunks with character/token boundary awareness.' },
-      { step: 'Embedding Generation', desc: 'Generates high-dimensional vector embeddings for each chunk.' },
-      { step: 'Vector Retrieval', desc: 'Performs cosine similarity search against user query to find top-k relevant passages.' },
-      { step: 'Contextual Generation', desc: 'Passes retrieved context alongside prompt to LLM API to generate grounded answers with citations.' }
-    ],
+    shortDescription: 'A document question-answering application that extracts content, retrieves relevant passages and generates grounded responses.',
+    description: 'A document question-answering application that extracts content, retrieves relevant passages and generates grounded responses.',
+    problem: 'Searching across lengthy unstructured research papers and technical documents manually is slow and inefficient. Generic LLMs lack private document context and frequently hallucinate without strict grounding.',
+    whatIBuilt: 'Built a document intelligence application that ingests PDFs and text files, extracts text, chunks content with token boundaries, computes dense embeddings, retrieves top-k passages via vector search, and streams grounded answers.',
     technologies: [
       'Python',
-      'LLM API',
+      'RAG',
       'Embeddings',
-      'Vector Search',
-      'LangChain',
       'FastAPI'
+    ],
+    architecture: 'Document Upload & Ingestion → Semantic Text Chunking → Dense Embedding Generation → Cosine Similarity Vector Retrieval → Grounded Prompt Synthesis & FastAPI Streaming',
+    howItWorks: [
+      { step: 'Ingestion', desc: 'Extracts and parses raw text from uploaded research papers, PDFs, and text documents.' },
+      { step: 'Chunking', desc: 'Splits text into overlapping semantic chunks with character and token boundary awareness.' },
+      { step: 'Embedding', desc: 'Generates high-dimensional vector embeddings for each document chunk.' },
+      { step: 'Retrieval', desc: 'Performs cosine similarity search against user queries to retrieve top-k relevant passages.' },
+      { step: 'Grounded QA', desc: 'Supplies retrieved passages directly into LLM prompts for factual, cited question answering.' }
+    ],
+    keyFeatures: [
+      'Multi-document parsing and automated chunking with vector indexation',
+      'Semantic passage retrieval with similarity scoring',
+      'Grounded contextual QA with document source attribution',
+      'Clean document management interface with chunk inspector and metrics'
     ],
     whatIWorkedOn: [
       'Implemented document parsing and chunking pipeline with configurable chunk size and overlap.',
@@ -128,138 +201,111 @@ export const PROJECTS = [
       'Constructed prompt templates that supply context directly to LLM endpoints to minimize hallucinations.',
       'Created a FastAPI backend to manage document uploads and stream question-answering responses.'
     ],
+    whatILearned: 'Strategies for optimal chunk sizing and overlap, embedding model selection for technical text retrieval, and constructing strict grounding prompt templates to eliminate hallucination.',
     role: 'AI / Backend Developer',
-    image: '/projects/rag-assistant/thumbnail.svg',
+    image: '/projects/docmind/screenshot.png',
     screenshots: [
-      { title: 'Document Chat Interface', src: '/projects/rag-assistant/screenshot-1.svg', desc: 'Interface showing document upload, chunk retrieval inspector, and grounded answer stream' },
-      { title: 'RAG Architecture Diagram', src: '/projects/rag-assistant/architecture.svg', desc: 'Ingestion, embedding storage, semantic similarity search, and context-augmented prompting' }
+      { title: 'DocMind Research Overview', src: '/projects/docmind/screenshot.png', desc: 'Document collection metrics, vector store chunk count, and indexed research files' }
     ],
     github: 'https://github.com/Miteshreddy',
     liveDemo: null,
     visualType: 1,
   },
   {
-    id: 'cnn-classifier',
-    num: '04',
-    title: 'CNN IMAGE CLASSIFICATION',
-    subtitle: 'Deep Learning Model & Prediction UI',
-    category: 'DEEP LEARNING / COMPUTER VISION',
+    id: 'jobshieldxai',
+    number: '05',
+    num: '05',
+    title: 'JOBSHIELDXAI',
+    subtitle: 'AI Job Scam & Fraud Detection',
+    category: 'NLP / AI / FRAUD DETECTION',
+    status: 'Completed',
+    year: '2025',
+    featured: true,
+    shortDescription: 'An NLP-based application for identifying suspicious job listings and potential recruitment scams using transformer-based text classification.',
+    description: 'An AI-based system for identifying suspicious job listings and potential recruitment scams using natural-language processing and transformer-based classification.',
+    problem: 'Online recruitment fraud and scam job postings are surging, targeting job seekers with deceptive offers, phishing schemes, and financial advance-fee requests that traditional keyword filters fail to catch.',
+    whatIBuilt: 'Built an explainable AI framework that scans job posting descriptions, evaluates linguistic patterns and risk indicators using fine-tuned BERT transformers, and produces a trust score, risk category, and transparent reasoning.',
+    technologies: [
+      'Python',
+      'BERT',
+      'NLP',
+      'Transformers'
+    ],
+    architecture: 'Job Post Text Ingest → Tokenization & Contextual Encoding (BERT) → Transformer Classification Head → Explainability & Risk Scoring Engine → Web Prediction Interface',
+    howItWorks: [
+      { step: 'Text Ingest', desc: 'Accepts job posting text or URL content through the web interface.' },
+      { step: 'Tokenization', desc: 'Applies BERT subword tokenization with positional and attention encodings.' },
+      { step: 'Transformer Head', desc: 'Fine-tuned BERT classifier processes context to determine fraud probability.' },
+      { step: 'Explainable AI', desc: 'Calculates feature attribution to highlight suspicious phrasing and salary red flags.' },
+      { step: 'Trust Breakdown', desc: 'Outputs human-readable risk tier, trust score, and safety recommendations.' }
+    ],
+    keyFeatures: [
+      'Transformer-based classification for fake vs legitimate job advertisements',
+      'Transparent trust score and risk tier categorization',
+      'Human-readable explanation highlighting suspicious phrasing and fraud signals',
+      'Interactive web analyzer for one-pass job posting verification'
+    ],
+    whatIWorkedOn: [
+      'Preprocessed and labeled recruitment scam dataset with linguistic feature extraction.',
+      'Fine-tuned BERT transformer classifier for binary and multi-tier fraud classification.',
+      'Built feature attribution logic to generate explainable AI reasoning for end users.',
+      'Designed a clean web interface for instant job posting analysis and risk assessment.'
+    ],
+    whatILearned: 'Fine-tuning transformer architectures on imbalanced fraud datasets, extracting attention-based token importance for model explainability, and architecting low-latency NLP inference endpoints.',
+    role: 'NLP & Explainable AI Developer',
+    image: '/projects/jobshieldxai/screenshot.png',
+    screenshots: [
+      { title: 'JobShield-XAI Interface', src: '/projects/jobshieldxai/screenshot.png', desc: 'JobShield landing interface showing one-pass job analysis and explainable AI framework' }
+    ],
+    github: 'https://github.com/Miteshreddy',
+    liveDemo: null,
+    visualType: 1,
+  },
+  {
+    id: 'aivoicestudio',
+    number: '06',
+    num: '06',
+    title: 'AIVoiceStudio',
+    subtitle: 'AI Voice Studio',
+    category: 'CREATIVE AI / SPEECH SYNTHESIS',
     status: 'Completed',
     year: '2024',
     featured: true,
-    shortDescription: 'Convolutional neural network trained in PyTorch and connected to an interface for image uploads and predicted class probabilities.',
-    description: 'Trained a CNN-based image classification model and connected it to a small prediction interface where users can upload an image and see the predicted class.',
-    whyBuilt: 'To understand convolutional layer mechanics, feature maps, backpropagation, and loss curves firsthand rather than treating neural networks as black boxes.',
-    howItWorks: [
-      { step: 'Data Preparation', desc: 'Image augmentation, normalization, and train/val/test dataset split.' },
-      { step: 'CNN Architecture', desc: 'Convolutional layers with ReLU activation, max pooling, and fully connected classification head.' },
-      { step: 'Training Loop', desc: 'Cross-entropy loss calculation, Adam optimizer, and learning rate scheduling over epochs.' },
-      { step: 'Evaluation', desc: 'Validation accuracy tracking, loss curves, and confusion matrix calculation.' },
-      { step: 'Prediction Interface', desc: 'Lightweight web interface for image upload and top-k class probability display.' }
-    ],
+    shortDescription: 'An AI voice application focused on speech generation and creative content workflows.',
+    description: 'An AI voice application focused on speech generation and creative content workflows.',
+    problem: 'Content creators and video editors spend excessive time manually recording voiceovers, generating timed subtitles, and aligning speech pacing across video timelines.',
+    whatIBuilt: 'Built an AI voice and speech synthesis studio that enables automated voiceover generation, timed subtitle alignment, speech-to-text transcription, and seamless integration into creative video post-production workflows.',
     technologies: [
       'Python',
       'PyTorch',
-      'CNN',
-      'OpenCV',
-      'NumPy'
+      'Audio Processing',
+      'FastAPI'
     ],
-    whatIWorkedOn: [
-      'Built custom PyTorch Dataset classes and applied torchvision transforms for image preprocessing.',
-      'Designed and tuned CNN convolutional layers, filter counts, and dropout rates to prevent overfitting.',
-      'Tracked training and validation loss curves across epochs to determine optimal stopping points.',
-      'Connected saved model weights to a Python inference script to classify uploaded test images.'
-    ],
-    role: 'Deep Learning Developer',
-    image: '/projects/cnn-classifier/thumbnail.svg',
-    screenshots: [
-      { title: 'Prediction & Class Probabilities', src: '/projects/cnn-classifier/screenshot-1.svg', desc: 'Uploaded image preview alongside Softmax predicted class distribution' },
-      { title: 'Training Metrics & Loss Curve', src: '/projects/cnn-classifier/architecture.svg', desc: 'Confusion matrix and epoch-by-epoch training/validation loss curves' }
-    ],
-    github: 'https://github.com/Miteshreddy',
-    liveDemo: null,
-    visualType: 3,
-  },
-  {
-    id: 'face-recognition',
-    num: '05',
-    title: 'AI FACE RECOGNITION / ATTENDANCE SYSTEM',
-    subtitle: 'Face Embeddings & Verification Workflow',
-    category: 'COMPUTER VISION / FULL-STACK',
-    status: 'Experimenting',
-    year: '2025',
-    featured: true,
-    shortDescription: 'Computer vision pipeline that detects faces from a camera feed, computes face embeddings, and matches against registered records.',
-    description: 'Built a face-recognition workflow that detects faces from a camera, generates face embeddings and compares them with registered users before recording attendance.',
-    whyBuilt: 'To build a functional computer vision application that bridges face detection, metric learning / vector embeddings, and database persistence into an automated workflow.',
+    architecture: 'Text / Audio Ingest → Neural Speech Synthesis & Acoustic Feature Extraction → Subtitle Timing & Audio Normalization → Export & Timeline Integration',
     howItWorks: [
-      { step: 'Camera Capture', desc: 'OpenCV accesses webcam or RTSP video feed in real time.' },
-      { step: 'Face Detection', desc: 'Detects face bounding box and crops facial region with alignment.' },
-      { step: 'Embedding Extraction', desc: 'Deep learning model maps facial features into a 128-d or 512-d embedding vector.' },
-      { step: 'Distance Matching', desc: 'Calculates Euclidean distance / cosine similarity against stored user embeddings.' },
-      { step: 'Attendance Log', desc: 'When match distance is below threshold, attendance timestamp is saved to MongoDB.' }
+      { step: 'Text / Audio Ingest', desc: 'Accepts script text or raw spoken audio inputs into the studio workspace.' },
+      { step: 'Acoustic Processing', desc: 'Generates mel-spectrograms and processes acoustic representations with PyTorch.' },
+      { step: 'Voice Synthesis', desc: 'Neural synthesis models generate natural voiceover with controllable cadence.' },
+      { step: 'Timed Captions', desc: 'Automated speech-to-text generates accurate, word-timed subtitles.' },
+      { step: 'Export', desc: 'Clean audio masters and subtitle tracks are exported directly for video timelines.' }
     ],
-    technologies: [
-      'Python',
-      'OpenCV',
-      'DeepFace / Face Embeddings',
-      'Flask',
-      'MongoDB'
-    ],
-    whatIWorkedOn: [
-      'Configured face detection and cropping pipeline using OpenCV.',
-      'Generated and stored baseline face vector embeddings for authorized users.',
-      'Implemented distance threshold logic to distinguish recognized users from unknown visitors.',
-      'Connected recognition events to a Flask API with MongoDB for timestamped attendance logging.'
-    ],
-    role: 'Computer Vision & Backend',
-    image: '/projects/face-recognition/thumbnail.svg',
-    screenshots: [
-      { title: 'Live Recognition Feed', src: '/projects/face-recognition/screenshot-1.svg', desc: 'Camera feed with detected face bounding box, identity match name, and distance metric' },
-      { title: 'Workflow Architecture', src: '/projects/face-recognition/architecture.svg', desc: 'Face detection, feature embedding generation, database similarity matching, and attendance logging' }
-    ],
-    github: 'https://github.com/Miteshreddy',
-    liveDemo: null,
-    visualType: 2,
-  },
-  {
-    id: 'kaiz-studio',
-    num: '06',
-    title: 'KAIZ STUDIO — AI-ASSISTED VIDEO EDITING',
-    subtitle: 'Creative Post-Production & Automation Workflow',
-    category: 'CREATIVE TECHNOLOGY / VIDEO PRODUCTION',
-    status: 'Completed',
-    year: '2024',
-    featured: true,
-    shortDescription: 'AI-assisted creative workflow to reduce repetitive editing work such as captions, visual preparation, and content processing alongside Adobe Creative Suite.',
-    description: 'Built an AI-assisted creative workflow to reduce repetitive editing work such as captions, visual preparation and content processing. I also use Adobe tools heavily for editing, motion graphics and visual production.',
-    whyBuilt: 'Video post-production involves significant repetitive overhead (transcribing, rough cut assembly, asset preparation). I created a streamlined workflow combining AI automation with professional Adobe software to keep human creative storytelling at the center.',
-    howItWorks: [
-      { step: 'Footage Ingest', desc: 'Raw footage organized and tagged across project bins in Premiere Pro.' },
-      { step: 'AI Transcription & Captions', desc: 'Automated speech-to-text generates timed subtitles and identifies filler pauses.' },
-      { step: 'Rough Assembly', desc: 'Pacing and narrative structure assembled along multi-track sequence timeline.' },
-      { step: 'Motion & Visual Polish', desc: 'After Effects motion graphics, Photoshop assets, and Illustrator vectors integrated.' },
-      { step: 'Audio Mix & Export', desc: 'Audition audio cleanup, dynamic range leveling, and final master rendering.' }
-    ],
-    technologies: [
-      'Premiere Pro',
-      'After Effects',
-      'Photoshop',
-      'Illustrator',
-      'Audition',
-      'AI Audio/Caption Tools'
+    keyFeatures: [
+      'AI voice generation with customizable tone, pace, and pitch',
+      'Automated transcription and timed caption generation',
+      'Audio waveform visualization and dynamic leveling',
+      'Creative workflow integration for video post-production'
     ],
     whatIWorkedOn: [
-      'Structured end-to-end video production workflows from raw footage to final color-graded delivery.',
-      'Integrated AI-assisted transcription and caption generation into Premiere Pro sequences.',
-      'Designed custom motion graphic templates and visual overlays in After Effects.',
-      'Conducted audio restoration, noise removal, and dialogue mastering using Adobe Audition.'
+      'Implemented speech synthesis and transcription pipelines using Python and PyTorch.',
+      'Developed timed subtitle generation algorithms with word-level timestamp alignment.',
+      'Created audio normalization and noise reduction filters for studio-quality playback.',
+      'Integrated AI voice outputs with creative editing timelines and media sequences.'
     ],
-    role: 'Video Editor & Workflow Designer',
-    image: '/projects/kaiz-studio/thumbnail.svg',
+    whatILearned: 'Neural audio feature processing (spectrograms, mel-frequency cepstral coefficients), audio waveform manipulation in Python, and streamlining creative workflows with AI assistance.',
+    role: 'Creative AI & Audio Engineer',
+    image: '/projects/aivoicestudio/screenshot.jpg',
     screenshots: [
-      { title: 'Editing Timeline & Visual Composition', src: '/projects/kaiz-studio/screenshot-1.svg', desc: 'Multi-track timeline with video cuts, synchronized audio tracks, and motion title overlays' },
-      { title: 'Production Pipeline', src: '/projects/kaiz-studio/architecture.svg', desc: 'Creative pipeline combining Adobe Premiere Pro, After Effects, Photoshop, and AI transcription' }
+      { title: 'AI Voice & Creative Studio', src: '/projects/aivoicestudio/screenshot.jpg', desc: 'Creative studio timeline with AI caption suggestions, multi-track audio, and visual composition' }
     ],
     github: 'https://github.com/Miteshreddy',
     liveDemo: null,
@@ -267,4 +313,4 @@ export const PROJECTS = [
   }
 ];
 
-export const PROJECT_STATUSES = ['All', 'Completed', 'In Progress', 'Experimenting'];
+export const PROJECT_STATUSES = ['All', 'Completed', 'In Progress'];

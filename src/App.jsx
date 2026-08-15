@@ -286,45 +286,21 @@ function About() {
    PROJECT VISUAL
    =================================================== */
 function ProjectVisual({ type, title, imageSrc }) {
-  const accentColors = {
-    1: 'rgba(26,74,255,0.45)',
-    2: 'rgba(0,180,120,0.4)',
-    3: 'rgba(200,80,80,0.4)',
-    4: 'rgba(255,140,0,0.4)',
-  };
-  const accent = accentColors[type] || accentColors[1];
-
   return (
     <div className="project-item__visual-inner">
       {imageSrc ? (
         <img
           src={imageSrc}
-          alt={`${title} project preview`}
+          alt={`${title} project preview screenshot`}
           className="project-item__img"
           loading="lazy"
         />
       ) : (
-        <div style={{ width: '100%', height: '100%', background: '#0A0A0A' }} />
+        <div style={{ width: '100%', height: '100%', background: '#111' }} />
       )}
 
-      {/* Overlay tint */}
-      <div
-        className="project-item__img-overlay"
-        style={{ background: `linear-gradient(135deg, ${accent} 0%, rgba(0,0,0,0.45) 100%)` }}
-      />
-
-      {/* SVG grid decoration */}
-      <svg
-        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', opacity: 0.07, pointerEvents: 'none' }}
-        aria-hidden="true"
-      >
-        <defs>
-          <pattern id={`grid-${type || 1}`} width="40" height="40" patternUnits="userSpaceOnUse">
-            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(245,240,232,1)" strokeWidth="0.5"/>
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill={`url(#grid-${type || 1})`} />
-      </svg>
+      {/* Subtle hover overlay */}
+      <div className="project-item__img-overlay" />
 
       {/* Arrow */}
       <div className="project-item__arrow" aria-hidden="true">
@@ -349,7 +325,7 @@ function StatusBadge({ status }) {
 }
 
 /* ===================================================
-   PROJECT MODAL
+   PROJECT MODAL (DETAIL VIEW)
    =================================================== */
 function ProjectModal({ project, onClose }) {
   const isOpen = !!project;
@@ -364,11 +340,7 @@ function ProjectModal({ project, onClose }) {
     };
   }, [isOpen, onClose]);
 
-  if (!project) return (
-    <div className="modal-overlay" aria-hidden="true">
-      <div className="modal" role="dialog" />
-    </div>
-  );
+  if (!project) return null;
 
   return (
     <div
@@ -384,8 +356,14 @@ function ProjectModal({ project, onClose }) {
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.5rem', flexWrap: 'wrap' }}>
               <span className="modal__cat">{project.category}</span>
               <StatusBadge status={project.status} />
+              <span className="modal__year" style={{ fontFamily: 'var(--font-mono)', fontSize: '0.62rem', color: 'var(--clr-light)', letterSpacing: '0.1em' }}>{project.year}</span>
             </div>
             <h2 className="modal__title">{project.title}</h2>
+            {project.subtitle && (
+              <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--clr-mid)', letterSpacing: '0.08em', marginTop: '0.25rem', textTransform: 'uppercase' }}>
+                {project.subtitle}
+              </p>
+            )}
           </div>
           <button className="modal__close" onClick={onClose} aria-label="Close modal">
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
@@ -398,52 +376,58 @@ function ProjectModal({ project, onClose }) {
           <img
             src={project.image || (project.screenshots && project.screenshots[0]?.src)}
             alt={`${project.title} interface preview`}
-            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+            style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center' }}
           />
         </div>
 
         <div className="modal__img-note">
-          Technical artifact &bull; Pipeline and interface demonstration
+          Verified Technical Artifact &bull; Live System Interface
         </div>
 
         <div className="modal__body">
           {/* Overview */}
-          <div>
-            <div className="modal__label">OVERVIEW</div>
-            <p className="modal__text">{project.description}</p>
-          </div>
+          {project.description && (
+            <div>
+              <div className="modal__label">OVERVIEW</div>
+              <p className="modal__text">{project.description}</p>
+            </div>
+          )}
 
-          {/* Why I built it */}
-          <div>
-            <div className="modal__label">WHY I BUILT IT</div>
-            <p className="modal__text">{project.whyBuilt || project.shortDescription}</p>
-          </div>
+          {/* Problem */}
+          {project.problem && (
+            <div>
+              <div className="modal__label">PROBLEM</div>
+              <p className="modal__text">{project.problem}</p>
+            </div>
+          )}
 
-          {/* How It Works Pipeline */}
-          {project.howItWorks && (
+          {/* What I Built */}
+          {project.whatIBuilt && (
             <div className="modal__body-full">
-              <div className="modal__label">HOW IT WORKS &bull; TECHNICAL PIPELINE</div>
-              <div className="modal__workflow">
-                {project.howItWorks.map((step, idx) => (
-                  <div key={idx} className="modal__workflow-step">
-                    <span className="modal__workflow-step-num">0{idx + 1}</span>
-                    <span className="modal__workflow-step-name">{step.step}</span>
-                    <span className="modal__workflow-step-desc">{step.desc}</span>
-                  </div>
-                ))}
+              <div className="modal__label">WHAT I BUILT</div>
+              <p className="modal__text">{project.whatIBuilt}</p>
+            </div>
+          )}
+
+          {/* Architecture */}
+          {project.architecture && (
+            <div className="modal__body-full">
+              <div className="modal__label">ARCHITECTURE &amp; PIPELINE</div>
+              <div style={{ background: 'rgba(10, 10, 10, 0.04)', border: '1px solid rgba(10, 10, 10, 0.1)', padding: '1rem 1.25rem', fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: 'var(--clr-dark)', lineHeight: '1.6' }}>
+                <code>{project.architecture}</code>
               </div>
             </div>
           )}
 
-          {/* What I worked on */}
-          {project.whatIWorkedOn && (
+          {/* Key Features */}
+          {project.keyFeatures && (
             <div>
-              <div className="modal__label">WHAT I WORKED ON</div>
-              <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.6rem', padding: 0 }}>
-                {project.whatIWorkedOn.map((item, idx) => (
-                  <li key={idx} style={{ fontSize: '0.9rem', color: 'var(--clr-charcoal)', lineHeight: '1.6', display: 'flex', gap: '0.5rem' }}>
+              <div className="modal__label">KEY FEATURES</div>
+              <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.5rem', padding: 0 }}>
+                {project.keyFeatures.map((feat, idx) => (
+                  <li key={idx} style={{ fontSize: '0.88rem', color: 'var(--clr-charcoal)', lineHeight: '1.5', display: 'flex', gap: '0.5rem' }}>
                     <span style={{ color: 'var(--clr-accent)', fontWeight: 'bold' }}>&bull;</span>
-                    <span>{item}</span>
+                    <span>{feat}</span>
                   </li>
                 ))}
               </ul>
@@ -460,10 +444,49 @@ function ProjectModal({ project, onClose }) {
             </div>
           </div>
 
+          {/* How It Works Pipeline */}
+          {project.howItWorks && (
+            <div className="modal__body-full">
+              <div className="modal__label">EXECUTION PIPELINE</div>
+              <div className="modal__workflow">
+                {project.howItWorks.map((step, idx) => (
+                  <div key={idx} className="modal__workflow-step">
+                    <span className="modal__workflow-step-num">0{idx + 1}</span>
+                    <span className="modal__workflow-step-name">{step.step}</span>
+                    <span className="modal__workflow-step-desc">{step.desc}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* What I Worked On */}
+          {project.whatIWorkedOn && (
+            <div>
+              <div className="modal__label">WHAT I WORKED ON</div>
+              <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.6rem', padding: 0 }}>
+                {project.whatIWorkedOn.map((item, idx) => (
+                  <li key={idx} style={{ fontSize: '0.88rem', color: 'var(--clr-charcoal)', lineHeight: '1.55', display: 'flex', gap: '0.5rem' }}>
+                    <span style={{ color: 'var(--clr-accent)', fontWeight: 'bold' }}>&bull;</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {/* What I Learned */}
+          {project.whatILearned && (
+            <div>
+              <div className="modal__label">WHAT I LEARNED</div>
+              <p className="modal__text">{project.whatILearned}</p>
+            </div>
+          )}
+
           {/* Project Screenshots */}
           {project.screenshots && project.screenshots.length > 0 && (
             <div className="modal__body-full">
-              <div className="modal__label">PROJECT ARTIFACTS &amp; SCREENSHOTS</div>
+              <div className="modal__label">PROJECT SCREENSHOTS</div>
               <div className="modal__screenshots">
                 {project.screenshots.map((s, idx) => (
                   <div key={idx} className="modal__screenshot-card">
@@ -479,30 +502,32 @@ function ProjectModal({ project, onClose }) {
           )}
 
           {/* Action Links */}
-          <div className="modal__body-full">
-            <div className="modal__actions">
-              {project.github && (
-                <a
-                  href={project.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn--modal-github"
-                >
-                  VIEW ON GITHUB ↗
-                </a>
-              )}
-              {project.liveDemo && (
-                <a
-                  href={project.liveDemo}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn--modal-demo"
-                >
-                  LIVE DEMO ↗
-                </a>
-              )}
+          {(project.github || project.liveDemo) && (
+            <div className="modal__body-full">
+              <div className="modal__actions">
+                {project.github && (
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn--modal-github"
+                  >
+                    VIEW ON GITHUB ↗
+                  </a>
+                )}
+                {project.liveDemo && (
+                  <a
+                    href={project.liveDemo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn--modal-demo"
+                  >
+                    LIVE DEMO ↗
+                  </a>
+                )}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </div>
@@ -712,7 +737,7 @@ function AISection() {
     {
       num: '03',
       title: 'FULL-STACK ML INTEGRATION',
-      desc: 'Connecting trained models (XGBoost, Decision Trees, CNNs) to REST endpoints and clean React interfaces so anyone can test predictions directly.',
+      desc: 'Connecting trained models (XGBoost, Decision Trees, Transformers, YOLO) to REST endpoints and clean React interfaces so anyone can test predictions directly.',
     },
   ];
 
@@ -905,44 +930,44 @@ function Skills() {
 const GALLERY_ITEMS = [
   {
     id: 'g1',
-    src: '/projects/agroxai/thumbnail.svg',
+    src: '/projects/agroxai/screenshot.png',
     title: 'AGROXAI DASHBOARD',
     category: 'Crop Recommendation & ML',
     ratio: 'landscape',
   },
   {
     id: 'g2',
-    src: '/projects/object-detection/thumbnail.svg',
-    title: 'OBJECT TRACKING',
-    category: 'PyTorch YOLO & OpenCV',
+    src: '/projects/vision-attendance/screenshot.png',
+    title: 'VISIONATTENDANCE',
+    category: 'Face Biometrics & Attendance',
     ratio: 'landscape',
   },
   {
     id: 'g3',
-    src: '/projects/rag-assistant/thumbnail.svg',
-    title: 'RAG ASSISTANT',
-    category: 'Vector Search & QA',
+    src: '/projects/visiontrack/screenshot.png',
+    title: 'VISIONTRACK PLATFORM',
+    category: 'YOLO Object Tracking & Telemetry',
     ratio: 'landscape',
   },
   {
     id: 'g4',
-    src: '/projects/cnn-classifier/thumbnail.svg',
-    title: 'CNN CLASSIFIER',
-    category: 'Deep Learning & Metrics',
+    src: '/projects/docmind/screenshot.png',
+    title: 'DOCMIND RESEARCH',
+    category: 'Document Intelligence & RAG',
     ratio: 'landscape',
   },
   {
     id: 'g5',
-    src: '/projects/face-recognition/thumbnail.svg',
-    title: 'FACE RECOGNITION',
-    category: 'Embeddings & Attendance',
+    src: '/projects/jobshieldxai/screenshot.png',
+    title: 'JOBSHIELDXAI',
+    category: 'AI Job Scam & Fraud Detection',
     ratio: 'landscape',
   },
   {
     id: 'g6',
-    src: '/projects/kaiz-studio/thumbnail.svg',
-    title: 'KAIZ STUDIO',
-    category: 'Premiere Pro & Video Post',
+    src: '/projects/aivoicestudio/screenshot.jpg',
+    title: 'AIVOICESTUDIO',
+    category: 'AI Voice & Speech Synthesis',
     ratio: 'landscape',
   },
 ];
