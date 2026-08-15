@@ -965,7 +965,7 @@ const GALLERY_ITEMS = [
   },
   {
     id: 'g6',
-    src: '/projects/aivoicestudio/screenshot.jpg',
+    src: '/projects/aivoicestudio/screenshot.png',
     title: 'AIVOICESTUDIO',
     category: 'AI Voice & Speech Synthesis',
     ratio: 'landscape',

@@ -303,9 +303,9 @@ export const PROJECTS = [
     ],
     whatILearned: 'Neural audio feature processing (spectrograms, mel-frequency cepstral coefficients), audio waveform manipulation in Python, and streamlining creative workflows with AI assistance.',
     role: 'Creative AI & Audio Engineer',
-    image: '/projects/aivoicestudio/screenshot.jpg',
+    image: '/projects/aivoicestudio/screenshot.png',
     screenshots: [
-      { title: 'AI Voice & Creative Studio', src: '/projects/aivoicestudio/screenshot.jpg', desc: 'Creative studio timeline with AI caption suggestions, multi-track audio, and visual composition' }
+      { title: 'Voice Studio AI Dashboard', src: '/projects/aivoicestudio/screenshot.png', desc: 'Voice Studio AI dashboard showing voice library, speech generation, voice cloning, and audio cleanup workflows' }
     ],
     github: 'https://github.com/Miteshreddy',
     liveDemo: null,
