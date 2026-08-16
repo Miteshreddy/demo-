@@ -1,13 +1,14 @@
 /**
  * Central Project Data System
  * 
- * Final 6 Projects:
+ * Featured Projects:
  * 01 — AgroXAI (Crop Recommendation System)
  * 02 — VisionAttendance (AI Face Recognition Attendance System)
  * 03 — VisionTrack (Real-Time Object Detection & Tracking)
  * 04 — DocMind (Document Intelligence / RAG Assistant)
  * 05 — JOBSHIELDXAI (AI Job Scam & Fraud Detection)
  * 06 — AIVoiceStudio (AI Voice Studio)
+ * 07 — NEXA (Business Intelligence & Operations Demo)
  */
 
 export const PROJECTS = [
@@ -58,7 +59,8 @@ export const PROJECTS = [
       { title: 'AgroXAI Command Center', src: '/projects/agroxai/screenshot.png', desc: 'Satellite intelligence and predictive crop modeling command center' }
     ],
     github: 'https://github.com/Miteshreddy',
-    liveDemo: null,
+    driveLink: 'https://drive.google.com/file/d/1kKUJbGNKbfJcaVCcpRtVDRy-BYaUGSj_/view?usp=sharing',
+    liveDemo: 'https://drive.google.com/file/d/1kKUJbGNKbfJcaVCcpRtVDRy-BYaUGSj_/view?usp=sharing',
     visualType: 2,
   },
   {
@@ -108,7 +110,8 @@ export const PROJECTS = [
       { title: 'VisionAttendance Operations Dashboard', src: '/projects/vision-attendance/screenshot.png', desc: 'Biometric operations dashboard with recognition engine telemetry and attendance tracking' }
     ],
     github: 'https://github.com/Miteshreddy',
-    liveDemo: null,
+    driveLink: 'https://drive.google.com/file/d/1F-nq894FtYgjyMdOm3dO3IAc49kkxV1A/view?usp=drive_link',
+    liveDemo: 'https://drive.google.com/file/d/1F-nq894FtYgjyMdOm3dO3IAc49kkxV1A/view?usp=drive_link',
     visualType: 1,
   },
   {
@@ -158,7 +161,8 @@ export const PROJECTS = [
       { title: 'VisionTrack Platform Dashboard', src: '/projects/visiontrack/screenshot.png', desc: 'Real-time AI vision dashboard showing detection volume, class distribution, and session metrics' }
     ],
     github: 'https://github.com/Miteshreddy',
-    liveDemo: null,
+    driveLink: 'https://drive.google.com/file/d/1uu4gfR0aQpXZOBG-b84h5ZYw20nJRPau/view?usp=drive_link',
+    liveDemo: 'https://drive.google.com/file/d/1uu4gfR0aQpXZOBG-b84h5ZYw20nJRPau/view?usp=drive_link',
     visualType: 3,
   },
   {
@@ -208,7 +212,8 @@ export const PROJECTS = [
       { title: 'DocMind Research Overview', src: '/projects/docmind/screenshot.png', desc: 'Document collection metrics, vector store chunk count, and indexed research files' }
     ],
     github: 'https://github.com/Miteshreddy',
-    liveDemo: null,
+    driveLink: 'https://drive.google.com/file/d/1_4hfxE6lrzwuCUVkdfw6cejS4Py4Ugcd/view?usp=drive_link',
+    liveDemo: 'https://drive.google.com/file/d/1_4hfxE6lrzwuCUVkdfw6cejS4Py4Ugcd/view?usp=drive_link',
     visualType: 1,
   },
   {
@@ -258,7 +263,8 @@ export const PROJECTS = [
       { title: 'JobShield-XAI Interface', src: '/projects/jobshieldxai/screenshot.png', desc: 'JobShield landing interface showing one-pass job analysis and explainable AI framework' }
     ],
     github: 'https://github.com/Miteshreddy',
-    liveDemo: null,
+    driveLink: 'https://drive.google.com/file/d/1VwTNo7yZGFJKM2PIB07sTCe3MnJluedX/view?usp=drive_link',
+    liveDemo: 'https://drive.google.com/file/d/1VwTNo7yZGFJKM2PIB07sTCe3MnJluedX/view?usp=drive_link',
     visualType: 1,
   },
   {
@@ -308,8 +314,59 @@ export const PROJECTS = [
       { title: 'Voice Studio AI Dashboard', src: '/projects/aivoicestudio/screenshot.png', desc: 'Voice Studio AI dashboard showing voice library, speech generation, voice cloning, and audio cleanup workflows' }
     ],
     github: 'https://github.com/Miteshreddy',
-    liveDemo: null,
+    driveLink: 'https://drive.google.com/file/d/12DE4K70TVcnjjP-nRjQxADX3smJFUZbh/view?usp=drive_link',
+    liveDemo: 'https://drive.google.com/file/d/12DE4K70TVcnjjP-nRjQxADX3smJFUZbh/view?usp=drive_link',
     visualType: 4,
+  },
+  {
+    id: 'nexa',
+    number: '07',
+    num: '07',
+    title: 'NEXA',
+    subtitle: 'Business Intelligence & Operations',
+    category: 'UI/UX DESIGN / BUSINESS INTELLIGENCE',
+    status: 'Completed',
+    year: '2026',
+    featured: true,
+    shortDescription: 'A UI/UX demo project for business intelligence and operations to track performance, investigate activity, and turn operational data into clear decisions.',
+    description: 'A UI/UX demo project for business intelligence and operations to track performance, investigate activity, and turn operational data into clear decisions.',
+    problem: 'Modern businesses require intuitive dashboards that consolidate complex multi-source telemetry and operational analytics into clear, actionable decision workflows without visual clutter.',
+    whatIBuilt: 'Designed and built an executive business intelligence UI/UX demo with sleek dark-mode aesthetic, interactive metric breakdowns, activity investigation feeds, and performance tracking.',
+    technologies: [
+      'UI/UX Design',
+      'Figma',
+      'React',
+      'CSS',
+      'Data Visualization'
+    ],
+    architecture: 'Operations Ingest → Telemetry Normalization → Real-Time Analytics Engine → Executive KPI Dashboard → Decision Workflows',
+    howItWorks: [
+      { step: 'Ingest', desc: 'Aggregates enterprise activity logs and business metrics across operational systems.' },
+      { step: 'Processing', desc: 'Normalizes telemetry streams into high-level KPI indicators and performance indexes.' },
+      { step: 'Visualization', desc: 'Renders high-contrast dark-mode charts, active logs, and status breakdowns.' },
+      { step: 'Decisions', desc: 'Empowers stakeholders to investigate activity anomalies and execute informed decisions.' }
+    ],
+    keyFeatures: [
+      'Sleek dark-mode executive UI with minimalist modern aesthetics',
+      'Real-time business performance tracking and operational activity analytics',
+      'Interactive demo data environment with preconfigured metrics and zero setup',
+      'Clean typography hierarchy and responsive dashboard components'
+    ],
+    whatIWorkedOn: [
+      'Designed the complete UI/UX layout, typography system, and dark-mode aesthetic.',
+      'Structured business operations tracking, activity investigation views, and interactive CTA flows.',
+      'Built responsive frontend components and visual mockups for executive decision-making.'
+    ],
+    whatILearned: 'Mastered modern dark-mode SaaS UI design principles, high-contrast typography hierarchies, data density balance, and creating clear UX flows for complex business analytics.',
+    role: 'UI/UX Designer & Frontend Developer',
+    image: '/projects/nexa/screenshot.png',
+    screenshots: [
+      { title: 'NEXA Operations Dashboard', src: '/projects/nexa/screenshot.png', desc: 'Business intelligence and operations platform hero interface and activity dashboard' }
+    ],
+    github: 'https://github.com/Miteshreddy',
+    driveLink: 'https://drive.google.com/file/d/1BkIJnz5iVgO3v5G8vjGIdlgAu_9jtnmO/view?usp=drive_link',
+    liveDemo: 'https://drive.google.com/file/d/1BkIJnz5iVgO3v5G8vjGIdlgAu_9jtnmO/view?usp=drive_link',
+    visualType: 1,
   }
 ];
 

@@ -502,20 +502,30 @@ function ProjectModal({ project, onClose }) {
           )}
 
           {/* Action Links */}
-          {(project.github || project.liveDemo) && (
+          {(project.github || project.liveDemo || project.driveLink) && (
             <div className="modal__body-full">
               <div className="modal__actions">
+                {project.driveLink && (
+                  <a
+                    href={project.driveLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn--modal-github"
+                  >
+                    GOOGLE DRIVE DEMO ↗
+                  </a>
+                )}
                 {project.github && (
                   <a
                     href={project.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn--modal-github"
+                    className="btn--modal-demo"
                   >
                     VIEW ON GITHUB ↗
                   </a>
                 )}
-                {project.liveDemo && (
+                {project.liveDemo && project.liveDemo !== project.driveLink && (
                   <a
                     href={project.liveDemo}
                     target="_blank"
@@ -598,6 +608,42 @@ function Work() {
                   <span key={t} className="project-item__tag" role="listitem">{t}</span>
                 ))}
               </div>
+              {project.driveLink && (
+                <div style={{ marginTop: '0.85rem' }}>
+                  <a
+                    href={project.driveLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '0.45rem',
+                      fontFamily: 'var(--font-mono)',
+                      fontSize: '0.7rem',
+                      letterSpacing: '0.08em',
+                      textTransform: 'uppercase',
+                      color: 'var(--clr-dark)',
+                      textDecoration: 'none',
+                      padding: '0.38rem 0.8rem',
+                      border: '1px solid rgba(10, 10, 10, 0.22)',
+                      background: 'rgba(10, 10, 10, 0.03)',
+                      transition: 'all 0.2s ease',
+                      fontWeight: 600
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = 'var(--clr-dark)';
+                      e.currentTarget.style.color = 'var(--clr-bg)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = 'rgba(10, 10, 10, 0.03)';
+                      e.currentTarget.style.color = 'var(--clr-dark)';
+                    }}
+                  >
+                    <span>GOOGLE DRIVE DEMO ↗</span>
+                  </a>
+                </div>
+              )}
             </div>
             <div className="project-item__visual">
               <ProjectVisual
@@ -620,7 +666,7 @@ function Work() {
    =================================================== */
 function Stats() {
   const stats = [
-    { num: '06', label: 'PROJECTS BUILT\n& IN PROGRESS' },
+    { num: '07', label: 'PROJECTS BUILT\n& IN PROGRESS' },
     { num: '09+', label: 'TECHNICAL\nDOMAINS' },
     { num: '05+', label: 'ADOBE &\nCREATIVE TOOLS' },
     { num: '∞', label: 'MODELS &\nEXPERIMENTS' },
@@ -858,8 +904,8 @@ function ProjectsGateway() {
           <div className="eyebrow eyebrow--light" style={{ marginBottom: '0.8rem' }}>FEATURED CODEBASE &amp; PIPELINES</div>
           <h2 className="project-gateway__title">EXPLORE ALL<br />PROJECTS</h2>
           <p className="project-gateway__sub">
-            Detailed technical breakdowns of 6 ML pipelines, real-time computer vision models,
-            RAG vector search, and interactive full-stack AI applications.
+            Detailed technical breakdowns of 7 ML pipelines, real-time computer vision models,
+            RAG vector search, and interactive business intelligence applications.
           </p>
           <div className="project-gateway__pills">
             {PROJECTS.map((p) => (
@@ -968,6 +1014,13 @@ const GALLERY_ITEMS = [
     src: '/projects/aivoicestudio/screenshot.png',
     title: 'AIVOICESTUDIO',
     category: 'AI Voice & Speech Synthesis',
+    ratio: 'landscape',
+  },
+  {
+    id: 'g7',
+    src: '/projects/nexa/screenshot.png',
+    title: 'NEXA PLATFORM',
+    category: 'Business Intelligence & Operations',
     ratio: 'landscape',
   },
 ];
