@@ -189,70 +189,408 @@ function Navbar() {
 }
 
 /* ===================================================
-   HERO — Subtle Atmospheric Lighting (No Extreme White Circle)
+   HERO INTERACTIVE AI MOTION VISUALIZER
+   Real-time 60fps Canvas: Neural Mesh, Waves & Tensors
+   =================================================== */
+function HeroMotionVisualizer() {
+  const canvasRef = useRef(null);
+  const [mode, setMode] = useState('mesh'); // 'mesh' | 'waves' | 'particles'
+  const [fps, setFps] = useState(60);
+  const mouseRef = useRef({ x: -1000, y: -1000, active: false });
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let animationFrameId;
+    let width, height;
+
+    const resize = () => {
+      const rect = canvas.getBoundingClientRect();
+      width = canvas.width = rect.width * (window.devicePixelRatio || 1);
+      height = canvas.height = rect.height * (window.devicePixelRatio || 1);
+      ctx.scale(window.devicePixelRatio || 1, window.devicePixelRatio || 1);
+    };
+
+    resize();
+    window.addEventListener('resize', resize);
+
+    // Initialize particles
+    const count = 55;
+    const particles = [];
+    const cssW = () => canvas.getBoundingClientRect().width;
+    const cssH = () => canvas.getBoundingClientRect().height;
+
+    for (let i = 0; i < count; i++) {
+      particles.push({
+        x: Math.random() * (cssW() || 400),
+        y: Math.random() * (cssH() || 360),
+        vx: (Math.random() - 0.5) * 0.9,
+        vy: (Math.random() - 0.5) * 0.9,
+        radius: Math.random() * 2 + 1.5,
+        baseRadius: Math.random() * 2 + 1.5,
+        pulseSpeed: 0.02 + Math.random() * 0.03,
+        pulseOffset: Math.random() * Math.PI * 2,
+        connections: [],
+      });
+    }
+
+    // Neural Synapse Pulses
+    const pulses = [];
+    for (let i = 0; i < 6; i++) {
+      pulses.push({
+        from: Math.floor(Math.random() * count),
+        to: Math.floor(Math.random() * count),
+        progress: Math.random(),
+        speed: 0.008 + Math.random() * 0.012,
+      });
+    }
+
+    let lastTime = performance.now();
+    let frameCount = 0;
+    let time = 0;
+
+    const render = (now) => {
+      time += 0.015;
+      frameCount++;
+      if (now - lastTime >= 1000) {
+        setFps(Math.round((frameCount * 1000) / (now - lastTime)));
+        frameCount = 0;
+        lastTime = now;
+      }
+
+      const w = cssW();
+      const h = cssH();
+      ctx.clearRect(0, 0, w, h);
+
+      if (mode === 'mesh') {
+        // --- MODE 1: NEURAL MESH & SYNAPSE PULSES ---
+        // Update particles
+        particles.forEach((p, idx) => {
+          p.x += p.vx;
+          p.y += p.vy;
+
+          // Bounce off boundaries
+          if (p.x < 0 || p.x > w) p.vx *= -1;
+          if (p.y < 0 || p.y > h) p.vy *= -1;
+
+          // Mouse attraction / interaction
+          if (mouseRef.current.active) {
+            const dx = mouseRef.current.x - p.x;
+            const dy = mouseRef.current.y - p.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 130) {
+              const force = (130 - dist) / 130;
+              p.x += (dx / dist) * force * 1.5;
+              p.y += (dy / dist) * force * 1.5;
+            }
+          }
+
+          // Dynamic radius pulse
+          p.radius = p.baseRadius + Math.sin(time * 3 + p.pulseOffset) * 0.6;
+        });
+
+        // Draw connecting filaments
+        for (let i = 0; i < count; i++) {
+          for (let j = i + 1; j < count; j++) {
+            const dx = particles[i].x - particles[j].x;
+            const dy = particles[i].y - particles[j].y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+
+            if (dist < 85) {
+              const alpha = (1 - dist / 85) * 0.35;
+              ctx.beginPath();
+              ctx.moveTo(particles[i].x, particles[i].y);
+              ctx.lineTo(particles[j].x, particles[j].y);
+              ctx.strokeStyle = `rgba(255, 255, 255, ${alpha})`;
+              ctx.lineWidth = 0.8;
+              ctx.stroke();
+            }
+          }
+        }
+
+        // Draw traveling synaptic light packets
+        pulses.forEach((pulse) => {
+          pulse.progress += pulse.speed;
+          if (pulse.progress >= 1) {
+            pulse.progress = 0;
+            pulse.from = Math.floor(Math.random() * count);
+            pulse.to = Math.floor(Math.random() * count);
+          }
+
+          const p1 = particles[pulse.from];
+          const p2 = particles[pulse.to];
+          if (p1 && p2) {
+            const sx = p1.x + (p2.x - p1.x) * pulse.progress;
+            const sy = p1.y + (p2.y - p1.y) * pulse.progress;
+
+            ctx.beginPath();
+            ctx.arc(sx, sy, 2.5, 0, Math.PI * 2);
+            ctx.fillStyle = '#ffffff';
+            ctx.shadowColor = 'rgba(255, 255, 255, 0.9)';
+            ctx.shadowBlur = 10;
+            ctx.fill();
+            ctx.shadowBlur = 0;
+          }
+        });
+
+        // Draw nodes
+        particles.forEach((p) => {
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
+          ctx.shadowColor = 'rgba(255, 255, 255, 0.5)';
+          ctx.shadowBlur = 6;
+          ctx.fill();
+          ctx.shadowBlur = 0;
+        });
+
+      } else if (mode === 'waves') {
+        // --- MODE 2: MATHEMATICAL VECTOR WAVES ---
+        const lines = 6;
+        for (let l = 0; l < lines; l++) {
+          ctx.beginPath();
+          const lineOffset = (l * Math.PI) / lines;
+          const alpha = 0.15 + (l / lines) * 0.45;
+          ctx.strokeStyle = `rgba(255, 255, 255, ${alpha})`;
+          ctx.lineWidth = 1.2;
+
+          for (let x = 0; x <= w; x += 6) {
+            const freq1 = 0.012;
+            const freq2 = 0.024;
+            const mouseFactor = mouseRef.current.active
+              ? Math.sin((x - mouseRef.current.x) * 0.03) * 15
+              : 0;
+
+            const y =
+              h / 2 +
+              Math.sin(x * freq1 + time * 2 + lineOffset) * (30 + l * 8) +
+              Math.cos(x * freq2 - time) * 18 +
+              mouseFactor;
+
+            if (x === 0) ctx.moveTo(x, y);
+            else ctx.lineTo(x, y);
+          }
+          ctx.stroke();
+        }
+
+      } else {
+        // --- MODE 3: TENSOR PARTICLES / FLOW FIELD ---
+        particles.forEach((p) => {
+          const angle = Math.sin(p.x * 0.008 + time) * Math.cos(p.y * 0.008 + time) * Math.PI * 2;
+          p.vx = Math.cos(angle) * 1.6;
+          p.vy = Math.sin(angle) * 1.6;
+
+          p.x += p.vx;
+          p.y += p.vy;
+
+          if (p.x < 0) p.x = w;
+          if (p.x > w) p.x = 0;
+          if (p.y < 0) p.y = h;
+          if (p.y > h) p.y = 0;
+
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.radius * 1.2, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.75)';
+          ctx.shadowColor = 'rgba(255, 255, 255, 0.4)';
+          ctx.shadowBlur = 4;
+          ctx.fill();
+          ctx.shadowBlur = 0;
+        });
+      }
+
+      animationFrameId = requestAnimationFrame(render);
+    };
+
+    animationFrameId = requestAnimationFrame(render);
+
+    const onCanvasMouseMove = (e) => {
+      const rect = canvas.getBoundingClientRect();
+      mouseRef.current = {
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top,
+        active: true,
+      };
+    };
+
+    const onCanvasMouseLeave = () => {
+      mouseRef.current.active = false;
+    };
+
+    canvas.addEventListener('mousemove', onCanvasMouseMove);
+    canvas.addEventListener('mouseleave', onCanvasMouseLeave);
+
+    return () => {
+      window.removeEventListener('resize', resize);
+      canvas.removeEventListener('mousemove', onCanvasMouseMove);
+      canvas.removeEventListener('mouseleave', onCanvasMouseLeave);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, [mode]);
+
+  return (
+    <div className="hero-visualizer" aria-label="Interactive AI & Machine Learning Pipeline Simulator">
+      {/* Console Header */}
+      <div className="hero-visualizer__header">
+        <div className="hero-visualizer__status">
+          <span className="hero-visualizer__dot" aria-hidden="true" />
+          <span className="hero-visualizer__status-text">LIVE INFERENCE</span>
+        </div>
+
+        {/* Mode Selector Switcher */}
+        <div className="hero-visualizer__modes" role="tablist" aria-label="Visualizer Mode">
+          <button
+            className={`hero-visualizer__mode-btn ${mode === 'mesh' ? 'active' : ''}`}
+            onClick={() => setMode('mesh')}
+            role="tab"
+            aria-selected={mode === 'mesh'}
+          >
+            Mesh
+          </button>
+          <button
+            className={`hero-visualizer__mode-btn ${mode === 'waves' ? 'active' : ''}`}
+            onClick={() => setMode('waves')}
+            role="tab"
+            aria-selected={mode === 'waves'}
+          >
+            Waves
+          </button>
+          <button
+            className={`hero-visualizer__mode-btn ${mode === 'particles' ? 'active' : ''}`}
+            onClick={() => setMode('particles')}
+            role="tab"
+            aria-selected={mode === 'particles'}
+          >
+            Tensors
+          </button>
+        </div>
+      </div>
+
+      {/* Interactive 60fps Canvas Display */}
+      <div className="hero-visualizer__canvas-wrap">
+        <canvas ref={canvasRef} className="hero-visualizer__canvas" />
+
+        {/* Floating Telemetry Chips */}
+        <div className="hero-visualizer__badge top-right">
+          <span className="badge-pulse" />
+          <span>{fps}.0 FPS &bull; REALTIME</span>
+        </div>
+        <div className="hero-visualizer__badge bottom-left">
+          <span>YOLOv8 &bull; ByteTrack Ingest</span>
+        </div>
+        <div className="hero-visualizer__badge bottom-right">
+          <span>Latency: 1.1ms</span>
+        </div>
+      </div>
+
+      {/* Footer Equalizer Waveforms */}
+      <div className="hero-visualizer__footer">
+        <div className="hero-visualizer__wave-bars" aria-hidden="true">
+          {[40, 75, 55, 90, 65, 80, 45, 95, 70, 85, 60, 90, 50, 75, 65, 85].map((h, i) => (
+            <span
+              key={i}
+              className="wave-bar"
+              style={{
+                height: `${h}%`,
+                animationDelay: `${(i * 0.08).toFixed(2)}s`,
+              }}
+            />
+          ))}
+        </div>
+        <div className="hero-visualizer__footer-text">
+          Interactive: Hover cursor to warp neural tensors
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ===================================================
+   HERO — Clean Two-Column Layout with Motion Visualizer
    =================================================== */
 function Hero() {
+  const heroRef = useRef(null);
   const scrollTo = (id) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  const handleMouseMove = (e) => {
+    if (!heroRef.current) return;
+    const rect = heroRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    heroRef.current.style.setProperty('--mouse-x', `${x}px`);
+    heroRef.current.style.setProperty('--mouse-y', `${y}px`);
+  };
+
   return (
-    <section id="hero" className="hero" aria-label="Hero section">
-      {/* Soft Ambient Atmospheric Glow (Replaced extreme white circle) */}
-      <div className="hero__ambient-wrap" aria-hidden="true">
-        <div className="hero__ambient-glow-primary" />
-        <div className="hero__ambient-glow-secondary" />
-        <div className="hero__ambient-ring" />
+    <section
+      id="hero"
+      className="hero"
+      aria-label="Hero section"
+      ref={heroRef}
+      onMouseMove={handleMouseMove}
+    >
+      {/* Professional Multi-Tier Ambient Glow System */}
+      <div className="hero__glow-system" aria-hidden="true">
+        <div className="hero__glow-beam" />
+        <div className="hero__glow-orb hero__glow-orb--primary" />
+        <div className="hero__glow-orb hero__glow-orb--secondary" />
+        <div className="hero__glow-orb hero__glow-orb--center" />
+        <div className="hero__glow-spotlight" />
       </div>
 
-      <div className="hero__content">
-        {/* Pill Badge */}
-        <div className="hero__badge">
-          <span className="hero__badge-dot" aria-hidden="true" />
-          <span>AI &amp; ML Developer &bull; UI/UX Designer</span>
+      <div className="hero__grid">
+        {/* Left Column: Headline & Value Proposition */}
+        <div className="hero__content">
+          <div className="hero__badge">
+            <span className="hero__badge-dot" aria-hidden="true" />
+            <span>AI &amp; ML Developer &bull; UI/UX Designer</span>
+          </div>
+
+          <h1 className="hero__headline">
+            <span className="hero__headline-top">Creative <strong>AI &amp; ML</strong></span>
+            <span className="hero__headline-bottom">development wizard</span>
+          </h1>
+
+          <p className="hero__sub">
+            Helping teams and companies build high-accuracy machine learning pipelines,
+            real-time computer vision models, and pixel-perfect, human-centric digital interfaces.
+          </p>
+
+          <div className="hero__actions">
+            <a
+              href="#work"
+              className="btn btn--work-with-me"
+              onClick={(e) => { e.preventDefault(); scrollTo('work'); }}
+            >
+              <span>Explore Work</span>
+              <span aria-hidden="true">&rarr;</span>
+            </a>
+            <a
+              href="#contact"
+              className="btn btn--contact-quick"
+              onClick={(e) => { e.preventDefault(); scrollTo('contact'); }}
+            >
+              <span>Get in touch</span>
+            </a>
+          </div>
+
+          <div className="hero__social-proof">
+            <div className="hero__avatar-stack" aria-hidden="true">
+              <div className="hero__avatar-item">AI</div>
+              <div className="hero__avatar-item">CV</div>
+              <div className="hero__avatar-item">UX</div>
+            </div>
+            <div className="hero__proof-text">
+              <strong>08+ production &amp; research projects built</strong> &bull; Based in Hyderabad, India
+            </div>
+          </div>
         </div>
 
-        {/* Headline — High Contrast Crisp Typography (Reference Style) */}
-        <h1 className="hero__headline">
-          <span className="hero__headline-top">Creative <strong>AI &amp; ML</strong></span>
-          <span className="hero__headline-bottom">development wizard</span>
-        </h1>
-
-        {/* Subtitle */}
-        <p className="hero__sub">
-          Helping teams and companies build high-accuracy machine learning pipelines,
-          real-time computer vision models, and pixel-perfect, human-centric digital interfaces.
-        </p>
-
-        {/* Actions — Professional Clean Pill Buttons (Phone button removed) */}
-        <div className="hero__actions">
-          <a
-            href="#work"
-            className="btn btn--work-with-me"
-            onClick={(e) => { e.preventDefault(); scrollTo('work'); }}
-          >
-            <span>Explore Work</span>
-            <span aria-hidden="true">&rarr;</span>
-          </a>
-          <a
-            href="#contact"
-            className="btn btn--contact-quick"
-            onClick={(e) => { e.preventDefault(); scrollTo('contact'); }}
-          >
-            <span>Get in touch</span>
-          </a>
-        </div>
-
-        {/* Social Proof Stack below Hero */}
-        <div className="hero__social-proof">
-          <div className="hero__avatar-stack" aria-hidden="true">
-            <div className="hero__avatar-item">AI</div>
-            <div className="hero__avatar-item">CV</div>
-            <div className="hero__avatar-item">UX</div>
-          </div>
-          <div className="hero__proof-text">
-            <strong>08+ production &amp; research projects built</strong> &bull; Based in Hyderabad, India
-          </div>
+        {/* Right Column: Interactive 60fps AI Motion Visualizer */}
+        <div className="hero__visual-column">
+          <HeroMotionVisualizer />
         </div>
       </div>
     </section>
